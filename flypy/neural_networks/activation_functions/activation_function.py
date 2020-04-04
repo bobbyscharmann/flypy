@@ -39,7 +39,7 @@ Approximates identity near the origin – When activation functions have this pr
 from abc import ABC
 from abc import abstractmethod
 import numpy as np
-
+from plotly import graph_objects as go
 
 """Class implementing the interface for an activation function."""
 class ActivationFunction(ABC):
@@ -55,3 +55,22 @@ class ActivationFunction(ABC):
     @abstractmethod 
     def derivative(cls, x: np.float) -> np.float:
         pass
+    
+    def plot(self, xmin: np.float, xmax: np.float, derivative: bool=False) -> None:
+        x_vals = np.linspace(start=xmin, 
+                             stop=xmax,
+                             num=200)
+        y_vals = self.eval(x_vals) if not derivative else self.derivative(x_vals)
+        fig = go.Figure(data=go.Scatter(
+                x=x_vals,
+                y=y_vals,
+                mode='markers'
+        ))
+        fig.update_layout(
+            title='Logistic Activation Function ' if not derivative else 
+            "Derivative for the Logistic Activation Function",
+            title_x=0.5,
+            xaxis_title='Value',
+            yaxis_title='logistic(value)',
+        )        
+        fig.show() 

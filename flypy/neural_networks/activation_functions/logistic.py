@@ -13,7 +13,6 @@
     
 from .activation_function import ActivationFunction
 import numpy as np
-from plotly import graph_objects
 
 class Logistic(ActivationFunction):
     
@@ -33,10 +32,3 @@ class Logistic(ActivationFunction):
            Reference: https://en.wikipedia.org/wiki/Logistic_function#Derivative
         """
         return cls.eval(x) * (1 - cls.eval(x))    
-    
-    def plot(cls, xmin: np.float, xmax: np.float) -> None:
-        x_vals = np.linspace(start=xmin, 
-                             stop=xmax,
-                             num=200)
-        yvals = cls.eval(x_vals)
-        
