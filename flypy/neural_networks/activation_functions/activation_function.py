@@ -46,10 +46,12 @@ class ActivationFunction(ABC):
     def __init__(self):
         super().__init__()
         
+    @classmethod
     @abstractmethod 
-    def eval(self, x: np.float) -> np.float:
+    def eval(cls, x: np.float) -> np.float:
         pass
     
+    @classmethod
     @abstractmethod 
-    def derivative(self, x: np.float) -> np.float:
+    def derivative(cls, x: np.float) -> np.float:
         pass

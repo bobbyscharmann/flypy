@@ -3,3 +3,4 @@
 Initial Version: April 4, 2020
 
 """
+from .logistic import Logistic
