@@ -57,6 +57,13 @@ class ActivationFunction(ABC):
         pass
     
     def plot(self, xmin: np.float, xmax: np.float, derivative: bool=False) -> None:
+        """ Uses Plotly to plot the activation function over some range.
+        
+        Inputs:
+            xmin (np.float) - Minimum x value for plotting (independent variable)
+            xmax (np.float) - Maximum x value for plotting (independent variable)
+            derivative (bool) - Whether to plot the activation function or its derivative
+        """
         x_vals = np.linspace(start=xmin, 
                              stop=xmax,
                              num=200)
@@ -67,10 +74,10 @@ class ActivationFunction(ABC):
                 mode='markers'
         ))
         fig.update_layout(
-            title='Logistic Activation Function ' if not derivative else 
-            "Derivative for the Logistic Activation Function",
+            title='Activation Function' if not derivative else 
+            "Derivative for the Activation Function",
             title_x=0.5,
             xaxis_title='Value',
-            yaxis_title='logistic(value)',
+            yaxis_title='activation(value)',
         )        
         fig.show() 
