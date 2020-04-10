@@ -24,6 +24,6 @@ setup(
         "Development Status :: 3 - Alpha",
         'Programming Language :: Python :: 3.6',
         "Topic :: Utilities",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
     ],
 )

@@ -3,3 +3,5 @@
 Initial Version: April 4, 2020
 
 """
+
+from .neural_network import NeuralNetworkTwoLayers

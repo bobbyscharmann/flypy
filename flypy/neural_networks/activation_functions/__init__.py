@@ -5,3 +5,4 @@ Initial Version: April 4, 2020
 """
 from .sigmoid import Sigmoid
 from .relu import ReLU
+from .activation_function import ActivationFunction
