@@ -6,9 +6,9 @@ l = ReLU()
 #l.plot(-10, 10, derivative=False)
 print("Hello world.")
 
-nn = NeuralNetworkTwoLayers()
-
-nn.inputs = np.asarray([[0,0],[0,1],[1,0],[1,1]])
-nn.outputs = np.asarray([0,1,1,1])
+nn = NeuralNetworkTwoLayers(X=np.asarray([[0,0],[0,1],[1,0],[1,1]]),
+                            Y=np.asarray([0,1,1,1]), 
+                            activation=ReLU,
+                            num_layers=2)
 
 nn.train()
