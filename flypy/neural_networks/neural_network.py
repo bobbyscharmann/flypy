@@ -1,3 +1,4 @@
+from examples.main import nn_architecture
 from typing import ClassVar
 from flypy.neural_networks.activation_functions import ActivationFunction, ReLU, Sigmoid
 import numpy as np
@@ -16,7 +17,7 @@ class NeuralNetworkTwoLayers(object):
     def __init__(self,
                  X: np.ndarray,
                  Y: np.ndarray,
-                 num_layers: int,
+                 nn_architecture: np.ndarray,
                  activation=ReLU,
                  learning_rate: np.float=0.001):
         super().__init__()
@@ -27,32 +28,67 @@ class NeuralNetworkTwoLayers(object):
         # The gradient vector has a direction and a magnitude. Gradient descent algorithms 
         # multiply the magnitude of the gradient by a scalar known as learning rate (also 
         # sometimes called step size) to determine the next point.
-        self.learning_rate = learning_rate
+        self.__learning_rate = learning_rate
         self.__inputs = X
         self.__outputs = Y
-        self.num_layers = num_layers
+        self.nn_architecture = nn_architecture
         # initialize weights and biases
         # TODO: 3 here should be dynamically computed based on the number
         #       of neurons on the input layer
         
-        # Number of layers
-        n = num_layers
-        
-        # Number of input neurons
-        m = 4
-        self.__biases = np.zeros((num_layers,m))
+        num_layers = len(nn_architecture)
+        np.random.seed(42)
+        param_vals = {} 
+        for idx, layer in enumerate(nn_architecture):
+            num_inputs = layer["input_dim"]
+            num_outputs = layer["output_dim"]
+            param_vals['W' + str(idx)] = 2 * np.random.random((num_outputs, num_inputs)) - 1
+            param_vals['b' + str(idx)] = 2 * np.random.random((num_outputs, 1)) - 1
 
-        # Initialize weights to a random number with a mean of 0.5
-        self.__weights1 = 2 * np.random.random((m, num_layers)) - 1
-        self.__weights2 = 2 * np.random.random((num_layers, 1)) - 1
+        self.__param_vals = param_vals
+    
+
+    def single_layer_forward_propagation(self, A_prev, W_curr, b_curr):
         
-         
+        Z = np.dot(W_curr, A_prev) + b_curr
+        A = self.activation(Z)
+        
+        return A, Z
+
+    def feedforward(self, X):
+        # Forward Propagation
+       
+        self.__memory = {}
+        params = self.__param_vals
+        nn_architecture = self.nn_architecture
+        
+        A_curr = X
+        for layer_idx, _ in enumerate(nn_architecture):
+            A_prev = A_curr
+            w_curr = params['W' +str(layer_idx)]
+            b_curr = params['b' +str(layer_idx)] 
+
+            # 
+            A_curr, Z_curr = self.single_layer_forward_propagation(A_curr, w_curr, b_curr)
+            
+            self.__memory['A' + str(layer_idx)] = A_prev
+            self.__memory['Z' + str(layer_idx)] = Z_curr
+            
+        return A_curr    
+    
+    def get_accuracy_value(self, Y_pred: np.ndarray, Y: np.ndarray):
+        Y_pred_ = Y_pred > 0.5 
+        return (Y_pred_ == Y).all(axis=0).mean()
+            
     @classmethod
     def cost(cls, ypred: np.ndarray, y_actual: np.ndarray):
-       """Cost function is the mean square error (MSE) """
-       m = ypred.shape[1]
-       J = -(1 / m) * np.sum([y_actual[i] * np.log10(ypred[i]) + (1-y_actual[i]) * np.log10(1-ypred[i]) for i in range(m)])
-       return J
+        """Cost function is the mean square error (MSE) """
+        m = ypred.shape[1]
+        J = -(1 / m) * np.sum([y_actual[i] * np.log(ypred[i]) + (1-y_actual[i]) * np.log(1-ypred[i]) for i in range(m)])
+        return J
+        #m = Y_hat.shape[1]
+        #cost = -1 / m * (np.dot(Y, np.log(Y_hat).T) + np.dot(1 - Y, np.log(1 - Y_hat).T))
+       #return np.squeeze(cost)
        #return np.sqrt(ypred**2 + y_actual**2)
    
     @property
@@ -71,36 +107,84 @@ class NeuralNetworkTwoLayers(object):
     def outputs(self, value: np.ndarray) -> None:
         self.__outputs = value
   
-    def forwardpropagation(self):
-        # Forward Propagation
-        # NOTE: Might need to transpose inputs here
-        layer1_z = np.dot(self.__inputs.T, self.__weights1) + self.__biases
-        self.layer1 = self.activation.eval(layer1_z)
-        layer2_z = np.dot(self.layer1, self.__weights2) + self.__biases
-        self.y_hat = self.activation.eval(layer2_z)
+    def single_layer_backward_propagation(self, dA_curr, W_curr, b_curr, Z_curr, A_prev):
         
+        m = A_prev.shape[1]
+        
+        dZ_curr = self.activation.derivatives(Z_curr)
+        dW_curr = np.dot(dZ_curr, A_prev.T) / m
+        db_curr = np.sum(dZ_curr, axis=1, keepdims=True) / m
+        dA_prev = np.dot(W_curr.T, dZ_curr)
+
+        return dA_prev, dW_curr, db_curr        
+         
+    def full_backward_propagation(self, Y_hat, Y):
+        grads_values = {}
+        m = Y.shape[1]
+        Y = Y.reshape(Y_hat.shape)
+        memory = self.__memory
+        params_values = self.__param_vals
+        dA_prev = - (np.divide(Y, Y_hat) - np.divide(1 - Y, 1 - Y_hat))
+        
+        for layer_idx_prev, layer in reversed(list(enumerate(self.nn_architecture))):
+            layer_idx_curr = layer_idx_prev + 1
+            
+            dA_curr = dA_prev
+            
+            A_prev = memory["A" + str(layer_idx_prev)]
+            Z_curr = memory["Z" + str(layer_idx_curr)]
+            W_curr = params_values["W" + str(layer_idx_curr)]
+            b_curr = params_values["b" + str(layer_idx_curr)]
+            
+            dA_prev, dW_curr, db_curr = self.single_layer_backward_propagation(
+                dA_curr, W_curr, b_curr, Z_curr, A_prev)
+            
+            grads_values["dW" + str(layer_idx_curr)] = dW_curr
+            grads_values["db" + str(layer_idx_curr)] = db_curr
+       
+        self.__grads_values = grads_values
+
+
+    def update(self):
+        for layer_idx, _ in enumerate(self.nn_architecture):
+            self.__param_vals["W" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["dW" + str(layer_idx)]        
+            self.__param_vals["b" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["db" + str(layer_idx)]
+
     def backwardpropagation(self):    
+        # Backward Propagation using Gradient Descent
         # Calculate Loss
         d_weights2 = self.cost(self.y_hat, self.__outputs) 
         d_weights1 = self.cost(self.layer1, self.__outputs) 
-        error = np.squeeze(cost) 
-        # Backward Propagation
+        #error = np.squeeze(cost) 
 
-        # Gradient Descent 
         # partial derivatives of weight and bias w.r.t cost
         dw = (1 / m) * np.dot(self.__inputs.T, (A - self.__outputs).T)
         db =  (1 / m) * A - self.__outputs
         
         # Update the weights
-        self.__weights -= self.learning_rate * dw
-        self.__biases -= self.learning_rate * db
+        self.__weights -= self.__learning_rate * dw
+        self.__biases -= self.__learning_rate * db
 
-    def train(self, batch_size: int=16, epochs: int=10000):
-        w = self.__weights
-        b = self.__biases
+    def train(self, X, Y,  epochs: int=10000):
+        params_values = self.__param_vals
+        cost_history = []
+        accuracy_history = []
+        
         for i in range(epochs):
-            self.forwardpropagation(w, b)
-            self.backwardpropagation()   
-            w, b, cost = self.optimize()
-           #if i % 100 == 0:
-            print("Epoch: ", i, " \tcost: ", cost) 
+            Y_hat = self.feedforward(X)
+            cost = self.cost(Y_hat, Y)
+            cost_history.append(cost)
+            accuracy = self.get_accuracy_value(Y_hat, Y)
+            accuracy_history.append(accuracy)
+            
+            self.full_backward_propagation(Y_hat, Y)
+            self.update()
+            
+        return params_values, cost_history, accuracy_history
+    #def train_mine(self, batch_size: int=16, epochs: int=10000):
+    #    for i in range(epochs):
+    #        self.feedforward()
+    #        self.backwardpropagation()   
+    #        #w, b, cost = self.optimize()
+    #       #if i % 100 == 0:
+    #        print("Epoch: ", i, " \tcost: ", cost) 
