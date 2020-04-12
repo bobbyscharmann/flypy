@@ -1,4 +1,3 @@
-from examples.main import nn_architecture
 from typing import ClassVar
 from flypy.neural_networks.activation_functions import ActivationFunction, ReLU, Sigmoid
 import numpy as np
@@ -17,7 +16,7 @@ class NeuralNetworkTwoLayers(object):
     def __init__(self,
                  X: np.ndarray,
                  Y: np.ndarray,
-                 nn_architecture: np.ndarray,
+                 nn_architecture,# : list[dict(str)],
                  activation=ReLU,
                  learning_rate: np.float=0.001):
         super().__init__()
@@ -40,18 +39,19 @@ class NeuralNetworkTwoLayers(object):
         np.random.seed(42)
         param_vals = {} 
         for idx, layer in enumerate(nn_architecture):
+            layer_idx = idx + 1
             num_inputs = layer["input_dim"]
             num_outputs = layer["output_dim"]
-            param_vals['W' + str(idx)] = 2 * np.random.random((num_outputs, num_inputs)) - 1
-            param_vals['b' + str(idx)] = 2 * np.random.random((num_outputs, 1)) - 1
+            param_vals['W' + str(layer_idx)] = 2 * np.random.random((num_outputs, num_inputs)) - 1
+            param_vals['b' + str(layer_idx)] = 2 * np.random.random((num_outputs, 1)) - 1
 
         self.__param_vals = param_vals
     
 
     def single_layer_forward_propagation(self, A_prev, W_curr, b_curr):
-        
+
         Z = np.dot(W_curr, A_prev) + b_curr
-        A = self.activation(Z)
+        A = self.activation().eval(Z)
         
         return A, Z
 
@@ -63,15 +63,16 @@ class NeuralNetworkTwoLayers(object):
         nn_architecture = self.nn_architecture
         
         A_curr = X
-        for layer_idx, _ in enumerate(nn_architecture):
+        for idx, _ in enumerate(nn_architecture):
+            layer_idx = idx + 1
             A_prev = A_curr
             w_curr = params['W' +str(layer_idx)]
             b_curr = params['b' +str(layer_idx)] 
 
             # 
-            A_curr, Z_curr = self.single_layer_forward_propagation(A_curr, w_curr, b_curr)
+            A_curr, Z_curr = self.single_layer_forward_propagation(A_prev, w_curr, b_curr)
             
-            self.__memory['A' + str(layer_idx)] = A_prev
+            self.__memory['A' + str(idx)] = A_prev
             self.__memory['Z' + str(layer_idx)] = Z_curr
             
         return A_curr    
@@ -81,14 +82,14 @@ class NeuralNetworkTwoLayers(object):
         return (Y_pred_ == Y).all(axis=0).mean()
             
     @classmethod
-    def cost(cls, ypred: np.ndarray, y_actual: np.ndarray):
+    def cost(cls, Y_hat: np.ndarray, Y: np.ndarray):
         """Cost function is the mean square error (MSE) """
-        m = ypred.shape[1]
-        J = -(1 / m) * np.sum([y_actual[i] * np.log(ypred[i]) + (1-y_actual[i]) * np.log(1-ypred[i]) for i in range(m)])
-        return J
-        #m = Y_hat.shape[1]
-        #cost = -1 / m * (np.dot(Y, np.log(Y_hat).T) + np.dot(1 - Y, np.log(1 - Y_hat).T))
-       #return np.squeeze(cost)
+        m = Y_hat.shape[1]
+        #J = -(1 / m) * np.sum([y_actual[i] * np.log(ypred[i]) + (1-y_actual[i]) * np.log(1-ypred[i]) for i in range(m)])
+        #return J
+        m = Y_hat.shape[1]
+        cost = -1 / m * (np.dot(Y.T, np.log(Y_hat).T) + np.dot(1 - Y.T, np.log(1 - Y_hat).T))
+        return np.squeeze(cost)
        #return np.sqrt(ypred**2 + y_actual**2)
    
     @property
@@ -111,7 +112,7 @@ class NeuralNetworkTwoLayers(object):
         
         m = A_prev.shape[1]
         
-        dZ_curr = self.activation.derivatives(Z_curr)
+        dZ_curr = self.activation.derivative(Z_curr)
         dW_curr = np.dot(dZ_curr, A_prev.T) / m
         db_curr = np.sum(dZ_curr, axis=1, keepdims=True) / m
         dA_prev = np.dot(W_curr.T, dZ_curr)
@@ -146,24 +147,9 @@ class NeuralNetworkTwoLayers(object):
 
 
     def update(self):
-        for layer_idx, _ in enumerate(self.nn_architecture):
+        for layer_idx, _ in enumerate(self.nn_architecture, 1):
             self.__param_vals["W" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["dW" + str(layer_idx)]        
             self.__param_vals["b" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["db" + str(layer_idx)]
-
-    def backwardpropagation(self):    
-        # Backward Propagation using Gradient Descent
-        # Calculate Loss
-        d_weights2 = self.cost(self.y_hat, self.__outputs) 
-        d_weights1 = self.cost(self.layer1, self.__outputs) 
-        #error = np.squeeze(cost) 
-
-        # partial derivatives of weight and bias w.r.t cost
-        dw = (1 / m) * np.dot(self.__inputs.T, (A - self.__outputs).T)
-        db =  (1 / m) * A - self.__outputs
-        
-        # Update the weights
-        self.__weights -= self.__learning_rate * dw
-        self.__biases -= self.__learning_rate * db
 
     def train(self, X, Y,  epochs: int=10000):
         params_values = self.__param_vals
@@ -176,7 +162,9 @@ class NeuralNetworkTwoLayers(object):
             cost_history.append(cost)
             accuracy = self.get_accuracy_value(Y_hat, Y)
             accuracy_history.append(accuracy)
-            
+            if i % 100 == 0:
+                print("Epoch: ", i, ", cost: ", cost, " accuracy:", accuracy)
+
             self.full_backward_propagation(Y_hat, Y)
             self.update()
             
