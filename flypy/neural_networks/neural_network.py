@@ -51,7 +51,7 @@ class NeuralNetworkTwoLayers(object):
     def single_layer_forward_propagation(self, A_prev, W_curr, b_curr):
 
         Z = np.dot(W_curr, A_prev) + b_curr
-        A = self.activation().eval(Z)
+        A = self.activation.eval(Z)
         
         return A, Z
 
@@ -88,10 +88,10 @@ class NeuralNetworkTwoLayers(object):
         #J = -(1 / m) * np.sum([y_actual[i] * np.log(ypred[i]) + (1-y_actual[i]) * np.log(1-ypred[i]) for i in range(m)])
         #return J
         m = Y_hat.shape[1]
+        return np.mean((Y_hat - Y)**2)
         cost = -1 / m * (np.dot(Y.T, np.log(Y_hat).T) + np.dot(1 - Y.T, np.log(1 - Y_hat).T))
         return np.squeeze(cost)
-       #return np.sqrt(ypred**2 + y_actual**2)
-   
+
     @property
     def inputs(self) -> None:
         return self.__inputs
