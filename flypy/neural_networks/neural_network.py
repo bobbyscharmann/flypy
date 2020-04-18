@@ -78,9 +78,8 @@ class NeuralNetworkTwoLayers(object):
         return A_curr    
     
     def get_accuracy_value(self, Y_pred: np.ndarray, Y: np.ndarray):
-        Y_pred_ = Y_pred > 0.5 
-        return (Y_pred_ == Y).all(axis=0).mean()
-            
+        return np.mean(Y_pred - Y)
+
     @classmethod
     def cost(cls, Y_hat: np.ndarray, Y: np.ndarray):
         """Cost function is the mean square error (MSE) """
