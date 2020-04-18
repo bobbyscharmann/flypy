@@ -14,7 +14,7 @@ nn_architecture = [
     {"input_dim": 4, "output_dim": 1},
 ]
 X = np.asarray([[0, 0], [0, 1], [1, 0], [1,1]]).T
-Y = np.asarray([[0], [1], [1], [1]])
+Y = np.asarray([[0], [1], [1], [0]])
 nn = NeuralNetworkTwoLayers(X=X,
                             Y=Y, 
                             nn_architecture=nn_architecture,

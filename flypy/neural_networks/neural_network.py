@@ -79,7 +79,7 @@ class NeuralNetworkTwoLayers(object):
     
     def get_accuracy_value(self, Y_hat: np.ndarray, Y: np.ndarray):
         Y_hat_ = self.convert_prob_into_class(Y_hat)
-        return (Y_hat_ == Y).all(axis=0).mean()
+        return (Y_hat_ == Y).all(axis=1).mean()
 
     # an auxiliary function that converts probability into class
     @classmethod
@@ -117,7 +117,12 @@ class NeuralNetworkTwoLayers(object):
         self.__outputs = value
 
     @classmethod
-    def relu_backward(self, dA, Z):
+    def sigmoid_backward(cls, dA, Z):
+        sig = 1/(1+np.exp(-Z))
+        return dA * sig * (1 - sig)
+
+    @classmethod
+    def relu_backward(cls, dA, Z):
         dZ = np.array(dA, copy=True)
         dZ[Z <= 0] = 0
         return dZ
@@ -126,7 +131,7 @@ class NeuralNetworkTwoLayers(object):
         
         m = A_prev.shape[1]
         relu_backward = self.relu_backward
-        backward_activation_func = relu_backward
+        backward_activation_func = self.sigmoid_backward
         dZ_curr = backward_activation_func(dA_curr, Z_curr)
         #dZ_curr = self.activation.derivative(Z_curr)
         dW_curr = np.dot(dZ_curr, A_prev.T) / m
@@ -167,7 +172,7 @@ class NeuralNetworkTwoLayers(object):
             self.__param_vals["W" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["dW" + str(layer_idx)]        
             self.__param_vals["b" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["db" + str(layer_idx)]
 
-    def train(self, X, Y,  epochs: int=100000):
+    def train(self, X, Y,  epochs: int=10000):
         params_values = self.__param_vals
         cost_history = []
         accuracy_history = []
