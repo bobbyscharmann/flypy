@@ -43,7 +43,7 @@ class NeuralNetworkTwoLayers(object):
             num_inputs = layer["input_dim"]
             num_outputs = layer["output_dim"]
             param_vals['W' + str(layer_idx)] = 2 * np.random.random((num_outputs, num_inputs)) - 1
-            param_vals['b' + str(layer_idx)] = 2 * np.random.random((num_outputs, 1)) - 1
+            param_vals['b' + str(layer_idx)] = 0.1 * np.random.randn(num_outputs, 1)
 
         self.__param_vals = param_vals
     
@@ -77,8 +77,17 @@ class NeuralNetworkTwoLayers(object):
             
         return A_curr    
     
-    def get_accuracy_value(self, Y_pred: np.ndarray, Y: np.ndarray):
-        return np.mean(Y_pred - Y)
+    def get_accuracy_value(self, Y_hat: np.ndarray, Y: np.ndarray):
+        Y_hat_ = self.convert_prob_into_class(Y_hat)
+        return (Y_hat_ == Y).all(axis=0).mean()
+
+    # an auxiliary function that converts probability into class
+    @classmethod
+    def convert_prob_into_class(cls, probs):
+        probs_ = np.copy(probs)
+        probs_[probs_ > 0.5] = 1
+        probs_[probs_ <= 0.5] = 0
+        return probs_
 
     @classmethod
     def cost(cls, Y_hat: np.ndarray, Y: np.ndarray):
@@ -87,7 +96,7 @@ class NeuralNetworkTwoLayers(object):
         #J = -(1 / m) * np.sum([y_actual[i] * np.log(ypred[i]) + (1-y_actual[i]) * np.log(1-ypred[i]) for i in range(m)])
         #return J
         m = Y_hat.shape[1]
-        return np.mean((Y_hat - Y)**2)
+        #return -np.mean((Y_hat - Y)**2)
         cost = -1 / m * (np.dot(Y.T, np.log(Y_hat).T) + np.dot(1 - Y.T, np.log(1 - Y_hat).T))
         return np.squeeze(cost)
 
@@ -106,12 +115,20 @@ class NeuralNetworkTwoLayers(object):
     @outputs.setter
     def outputs(self, value: np.ndarray) -> None:
         self.__outputs = value
-  
+
+    @classmethod
+    def relu_backward(self, dA, Z):
+        dZ = np.array(dA, copy=True)
+        dZ[Z <= 0] = 0
+        return dZ
+
     def single_layer_backward_propagation(self, dA_curr, W_curr, b_curr, Z_curr, A_prev):
         
         m = A_prev.shape[1]
-        
-        dZ_curr = self.activation.derivative(Z_curr)
+        relu_backward = self.relu_backward
+        backward_activation_func = relu_backward
+        dZ_curr = backward_activation_func(dA_curr, Z_curr)
+        #dZ_curr = self.activation.derivative(Z_curr)
         dW_curr = np.dot(dZ_curr, A_prev.T) / m
         db_curr = np.sum(dZ_curr, axis=1, keepdims=True) / m
         dA_prev = np.dot(W_curr.T, dZ_curr)
@@ -124,7 +141,7 @@ class NeuralNetworkTwoLayers(object):
         Y = Y.reshape(Y_hat.shape)
         memory = self.__memory
         params_values = self.__param_vals
-        dA_prev = - (np.divide(Y, Y_hat) - np.divide(1 - Y, 1 - Y_hat))
+        dA_prev = - (np.divide(Y, Y_hat + 0.0001) - np.divide(1 - Y, 1 - Y_hat+0.0001))
         
         for layer_idx_prev, layer in reversed(list(enumerate(self.nn_architecture))):
             layer_idx_curr = layer_idx_prev + 1
@@ -150,7 +167,7 @@ class NeuralNetworkTwoLayers(object):
             self.__param_vals["W" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["dW" + str(layer_idx)]        
             self.__param_vals["b" + str(layer_idx)] -= self.__learning_rate * self.__grads_values["db" + str(layer_idx)]
 
-    def train(self, X, Y,  epochs: int=10000):
+    def train(self, X, Y,  epochs: int=100000):
         params_values = self.__param_vals
         cost_history = []
         accuracy_history = []
