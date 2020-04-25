@@ -52,6 +52,7 @@ class NeuralNetworkTwoLayers(object):
 
         Z = np.dot(W_curr, A_prev) + b_curr
         A = self.activation.eval(Z)
+        A = 1/(1+np.exp(-Z))
         
         return A, Z
 
@@ -98,6 +99,7 @@ class NeuralNetworkTwoLayers(object):
         m = Y_hat.shape[1]
         #return -np.mean((Y_hat - Y)**2)
         cost = -1 / m * (np.dot(Y.T, np.log(Y_hat).T) + np.dot(1 - Y.T, np.log(1 - Y_hat).T))
+
         return np.squeeze(cost)
 
     @property
@@ -146,7 +148,7 @@ class NeuralNetworkTwoLayers(object):
         Y = Y.reshape(Y_hat.shape)
         memory = self.__memory
         params_values = self.__param_vals
-        dA_prev = - (np.divide(Y, Y_hat + 0.0001) - np.divide(1 - Y, 1 - Y_hat+0.0001))
+        dA_prev = - (np.divide(Y, Y_hat) - np.divide(1 - Y, 1 - Y_hat))
         
         for layer_idx_prev, layer in reversed(list(enumerate(self.nn_architecture))):
             layer_idx_curr = layer_idx_prev + 1

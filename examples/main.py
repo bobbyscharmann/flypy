@@ -8,9 +8,9 @@ print("Hello world.")
 
 nn_architecture = [
     {"input_dim": 2, "output_dim": 4},
-    {"input_dim": 4, "output_dim": 6},
-    {"input_dim": 6, "output_dim": 6},
-    {"input_dim": 6, "output_dim": 4},
+    #{"input_dim": 4, "output_dim": 6},
+    #{"input_dim": 6, "output_dim": 6},
+    #{"input_dim": 6, "output_dim": 4},
     {"input_dim": 4, "output_dim": 1},
 ]
 X = np.asarray([[0, 0], [0, 1], [1, 0], [1,1]]).T
