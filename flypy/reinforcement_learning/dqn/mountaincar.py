@@ -11,7 +11,7 @@ print(num_states)
 Q = np.random.uniform(low=-1, high=1, size=(num_states[0], num_states[1], NUM_POSSIBLE_ACTIONS))
 
 # Ratio between exploring and exploiting the environment
-EPSILON = 0.5
+EPSILON = 0.2
 LEARNING_RATE = 0.1
 
 # Discount factor
