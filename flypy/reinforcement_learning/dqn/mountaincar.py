@@ -18,7 +18,7 @@ LEARNING_RATE = 0.1
 GAMMA = 0.8
 done = False
 
-for i in range(5000):
+for i in range(10000):
     action = 2
     done = False
     state = env.reset()
