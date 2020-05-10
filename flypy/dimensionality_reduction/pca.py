@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_swiss_roll
 X, _ = make_swiss_roll() #np.random.uniform(0, 100, (10, 5200))
+X = np.random.uniform(0, 100, (10, 5200))
 
 
 X_centered = X - X.mean(axis=0)

@@ -11,14 +11,14 @@ print(num_states)
 Q = np.random.uniform(low=-1, high=1, size=(num_states[0], num_states[1], NUM_POSSIBLE_ACTIONS))
 
 # Ratio between exploring and exploiting the environment
-EPSILON = 0.2
+EPSILON = 0.02
 LEARNING_RATE = 0.1
 
 # Discount factor
 GAMMA = 0.8
 done = False
 
-for i in range(10000):
+for i in range(50000):
     action = 2
     done = False
     state = env.reset()
@@ -29,7 +29,8 @@ for i in range(10000):
         #print(env.observation_space.high)
         #print(env.observation_space.low)
 
-        #env.render()
+        if i > 49950:
+            env.render()
         if random.uniform(0, 1) < EPSILON:
             # Explore: Select a random action
             action = random.choice([0, 1, 2])
