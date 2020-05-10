@@ -30,7 +30,7 @@ class Agent(object):
         return
 
     def step(self):
-        return random.choice(self.environment.get_observations())
+        return env.action(random.choice(self.environment.get_observations()))
 
 
 if __name__ == "__main__":
