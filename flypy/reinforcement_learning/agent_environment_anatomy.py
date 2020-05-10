@@ -1,3 +1,5 @@
+"""Simple Reinforcement Learning Agent and Environment.
+Based this off code in Maxim Lapan's Deep Reinforcement Learning Hands-On"""
 import random
 
 
@@ -33,10 +35,13 @@ class Environment(object):
 class Agent(object):
     def __init__(self, env: Environment):
         self.environment = env
+        self.total_reward = 0
         return
 
     def step(self):
-        return env.action(random.choice(self.environment.get_observation()))
+        reward = env.action(random.choice(self.environment.get_observation()))
+        self.total_reward += reward
+        return reward
 
 
 if __name__ == "__main__":
@@ -45,3 +50,4 @@ if __name__ == "__main__":
 
     while not env.is_done():
         print(agent.step())
+    print(f"Total Reward: {agent.total_reward}")
