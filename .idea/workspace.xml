@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="361">
+              <caret line="38" column="72" selection-start-line="38" selection-start-column="72" selection-end-line="38" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -462,8 +462,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="361">
+          <caret line="38" column="72" selection-start-line="38" selection-start-column="72" selection-end-line="38" selection-end-column="72" />
         </state>
       </provider>
     </entry>
