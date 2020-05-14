@@ -1,10 +1,10 @@
 import torch
 
-V1 = torch.tensor([2.0, 2.0], requires_grad=True)
-V2 = torch.tensor([1.0, 1.0], requires_grad=True)
+V1 = torch.tensor([1.0, 2.0], requires_grad=True)
+V2 = torch.tensor([1.0, 1.0], requires_grad=False)
 
-v_sum = V1 + V2
-sum = (v_sum * 2).sum()
+v_sum = 2 * (V1 + V2)
+sum = (v_sum * 3).sum()
 print(f"Sum is: {sum}")
 
 # Compute Gradient
