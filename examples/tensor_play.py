@@ -1,5 +1,6 @@
+import numpy as np
 import torch
-
+from sklearn.model_selection import train_test_split
 # Create a few tensors on GPU
 V1 = torch.tensor([1.0, 2.0], requires_grad=True, device='cuda:0')
 V2 = torch.tensor([1.0, 1.0], requires_grad=False, device='cuda:0')
@@ -32,14 +33,20 @@ class BobsNN(torch.nn.Module):
         Y_hat = self.pipe(X)
         return Y_hat
 
-
-
-X = torch.FloatTensor([[3, 3], [2, 4]])
+X = torch.rand(200, 2)
 model = BobsNN(n_inputs=2, n_outputs=1)
 y_pred = model(X)
 print(f"Model predictions: {y_pred}")
 batch_size = 2
 num_epochs = 10
+X_train, Y_train, X_test, Y_test = train_test_split(X, test_size=0.2)
 
 for epoch in num_epochs:
-    for batch in range(1, X.ndim, batch_size):
+    for batch in range(1, len(X_train), batch_size):
+        X_batch = X_train[batch:batch+batch_size]
+        Y_batch = Y_train[batch:batch+batch_size]
+
+        Y_hat = model(X_train)
+        loss = torch.nn.MSELoss(Y_hat - Y_batch)
+        loss
+
