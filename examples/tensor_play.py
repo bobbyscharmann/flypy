@@ -25,7 +25,8 @@ class BobsNN(torch.nn.Module):
                                         torch.nn.Linear(5, n_outputs),
                                         torch.nn.ReLU(),
                                         torch.nn.Dropout(p=0.2),
-                                        torch.nn.Softmax(dim=1))
+                                        torch.nn.Softmax(dim=1),
+                                        )
 
     def forward(self, X):
         Y_hat = self.pipe(X)
@@ -33,7 +34,12 @@ class BobsNN(torch.nn.Module):
 
 
 
-X = torch.FloatTensor([[3, 3], [4, 4]])
+X = torch.FloatTensor([[3, 3], [2, 4]])
 model = BobsNN(n_inputs=2, n_outputs=1)
 y_pred = model(X)
 print(f"Model predictions: {y_pred}")
+batch_size = 2
+num_epochs = 10
+
+for epoch in num_epochs:
+    for batch in range(1, X.ndim, batch_size):
