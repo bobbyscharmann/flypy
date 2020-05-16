@@ -16,7 +16,7 @@ print(f"V1.grad Gradient: {V1.grad}")
 print(f"V2.grad Gradient: {V2.grad}")
 print(f"V3.grad Gradient: {V3.grad}")
 
-
+np.random.seed(42)
 class BobsNN(torch.nn.Module):
     def __init__(self, n_inputs, n_outputs):
 
@@ -32,13 +32,13 @@ class BobsNN(torch.nn.Module):
         Y_hat = self.pipe(X)
         return Y_hat
 
-x_vals = np.linspace(0,200,2000)
-X = torch.FloatTensor([x_vals, x_vals**2+np.random.uniform(0,10,2000)])
+x_vals = np.linspace(0, 2000, 2000)
+X = torch.FloatTensor([x_vals, x_vals**2 + 0 * np.random.uniform(0, 10, 2000)])
 print(f"X.shape{X.shape}")
 model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
 #print(f"Model predictions: {y_pred}")
 batch_size = 32
-num_epochs = 100
+num_epochs = 1000
 X_train, X_test, Y_train, Y_test = train_test_split(X[:, 0], X[:, 1], test_size=0.2)
 print(f"X.train{X_train.shape}")
 print(f"Y.train{Y_train.shape}")
@@ -62,5 +62,7 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-
-
+y = model(torch.FloatTensor([4]))
+print(f"model prediction: {y}")
+y = model(torch.FloatTensor([3]))
+print(f"model prediction: {y}")
