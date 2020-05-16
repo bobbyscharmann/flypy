@@ -32,8 +32,8 @@ class BobsNN(torch.nn.Module):
         Y_hat = self.pipe(X)
         return Y_hat
 
-x_vals = np.linspace(0,200,200)
-X = torch.FloatTensor([x_vals, x_vals**2+np.random.uniform(0,10,200)])
+x_vals = np.linspace(0,200,2000)
+X = torch.FloatTensor([x_vals, x_vals**2+np.random.uniform(0,10,2000)])
 print(f"X.shape{X.shape}")
 model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
 #print(f"Model predictions: {y_pred}")
@@ -50,6 +50,7 @@ optimizer = torch.optim.Adam(params=model.parameters(), lr=0.01)
 criterion = torch.nn.MSELoss()
 for epoch in range(num_epochs):
     for batch in range(0, len(X_train), batch_size):
+        optimizer.zero_grad()
         #print(f"batch is: {batch}")
         X_batch = X_train[batch:batch+batch_size]
         #print(f"X_batch.shape: {X_batch.shape}")
@@ -60,7 +61,6 @@ for epoch in range(num_epochs):
         print(f"Loss: {loss}")
         loss.backward()
         optimizer.step()
-        optimizer.zero_grad()
 
 
 
