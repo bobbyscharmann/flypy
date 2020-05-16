@@ -18,7 +18,7 @@ LEARNING_RATE = 0.1
 GAMMA = 0.8
 done = False
 
-for i in range(50000):
+for i in range(50):
     action = 2
     done = False
     state = env.reset()
@@ -29,7 +29,7 @@ for i in range(50000):
         #print(env.observation_space.high)
         #print(env.observation_space.low)
 
-        if i > 49950:
+        if i > 0:
             env.render()
         if random.uniform(0, 1) < EPSILON:
             # Explore: Select a random action
