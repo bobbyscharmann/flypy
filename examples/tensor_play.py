@@ -46,10 +46,13 @@ print(f"X.test{X_test.shape}")
 print(f"Y.test{Y_test.shape}")
 
 
-optimizer = torch.optim.Adam(params=model.parameters(), lr=0.01)
+optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
 criterion = torch.nn.MSELoss()
 for epoch in range(num_epochs):
+    i = 0
     for batch in range(0, len(X_train), batch_size):
+        print(f"i is: {i}")
+        i += 1
         optimizer.zero_grad()
         #print(f"batch is: {batch}")
         X_batch = X_train[batch:batch+batch_size]
