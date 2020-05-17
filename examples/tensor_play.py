@@ -45,7 +45,7 @@ print(f"X.shape{X.shape}")
 model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
 #model = TwoLayerNet(1, 100, 1)
 #print(f"Model predictions: {y_pred}")
-batch_size = 2000
+batch_size = 128
 num_epochs = 5000
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 print(f"X.train{X_train.shape}")
@@ -58,23 +58,17 @@ optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
 criterion = torch.nn.MSELoss(reduction='mean')
 for epoch in range(num_epochs):
     i = 0
-  #  for batch in range(0, len(X_train), batch_size):
-    #print(f"i is: {i}")
-    i += 1
-    optimizer.zero_grad()
-    #print(f"batch is: {batch}")
-    #X_batch = X_train[batch:batch+batch_size]
-    #print(f"X_batch.shape: {X_batch.shape}")
-    #Y_batch = Y_train[batch:batch+batch_size]
-    Y_train = Y_train.view(Y_train.shape[0], -1)
-    #print(f"Y_batch.shape: {Y_batch.shape}")
-    Y_hat = model(X_train.view(X_train.shape[0], -1))
-    #Y_hat = model(X_batch)
-    loss = criterion(Y_hat, Y_train)
-    if epoch % 100 == 0:
-        print(f"Loss: {loss.item()}")
-    loss.backward()
-    optimizer.step()
+    for batch in range(0, len(X_train), batch_size):
+        optimizer.zero_grad()
+        X_batch = X_train[batch:batch+batch_size]
+        Y_batch = Y_train[batch:batch+batch_size]
+        Y_train = Y_train.view(Y_train.shape[0], -1)
+        Y_hat = model(X_batch.view(X_batch.shape[0], -1))
+        loss = criterion(Y_hat, Y_batch)
+        if epoch % 100 == 0:
+            print(f"Loss: {loss.item()}")
+        loss.backward()
+        optimizer.step()
 
 y = model(torch.FloatTensor([1]))
 print(f"model prediction: {y}")
