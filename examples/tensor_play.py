@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 # Create a few tensors on GPU
 V1 = torch.tensor([1.0, 2.0], requires_grad=True, device='cuda:0')
 V2 = torch.tensor([1.0, 1.0], requires_grad=False, device='cuda:0')
@@ -24,9 +25,9 @@ class BobsNN(torch.nn.Module):
         self.pipe = torch.nn.Sequential(torch.nn.Linear(n_inputs, 100),
                                         #torch.nn.clamp(min=0),
                                         torch.nn.ReLU(),
-                                        #torch.nn.Linear(64, 32),
-                                        #torch.nn.ReLU(),
-                                        torch.nn.Linear(100, n_outputs),
+                                        torch.nn.Linear(100, 32),
+                                        torch.nn.ReLU(),
+                                        torch.nn.Linear(32, n_outputs),
                                         #torch.nn.ReLU(),
                                         )
 
@@ -35,7 +36,7 @@ class BobsNN(torch.nn.Module):
         return Y_hat
 
 x_vals = np.linspace(0, 2000, 2000)
-X = torch.FloatTensor([x_vals, 2*x_vals+3 + 0 * np.random.uniform(0, 10, 2000)])
+X = torch.FloatTensor([x_vals, 2*x_vals**2+3 + 0 * np.random.uniform(0, 10, 2000)])
 x = X[0, :].T#torch.randn(2000, 1)
 y = X[1, :].T#torch.randn(2000, 1)
 #x = torch.randn(2000, 1)
@@ -45,8 +46,8 @@ print(f"X.shape{X.shape}")
 model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
 #model = TwoLayerNet(1, 100, 1)
 #print(f"Model predictions: {y_pred}")
-batch_size = 128
-num_epochs = 5000
+batch_size = 2000
+num_epochs = 10000
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 print(f"X.train{X_train.shape}")
 print(f"Y.train{Y_train.shape}")
@@ -69,6 +70,15 @@ for epoch in range(num_epochs):
             print(f"Loss: {loss.item()}")
         loss.backward()
         optimizer.step()
+    if epoch == 1 or epoch == num_epochs-1:
+        x_vals = torch.FloatTensor(range(0, 2000))
+        y_vals = model(x_vals.view(x_vals.shape[0], -1))
+        plt.figure()
+        plt.scatter(x_vals.detach().numpy(), y_vals.detach().numpy())
+        plt.scatter(x, y)
+        plt.title(f"y=2x^2+3 @ epoch {epoch}")
+        plt.show()
+
 
 y = model(torch.FloatTensor([1]))
 print(f"model prediction: {y}")

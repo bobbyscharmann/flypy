@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/tensor_play.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="75" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="304">
+              <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -382,11 +382,6 @@
           <line>52</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/tensor_play.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -615,8 +610,8 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/tensor_play.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        <state relative-caret-position="304">
+          <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
