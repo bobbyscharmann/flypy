@@ -3,3 +3,4 @@ venv/
 dist/
 sdist/
 __pycache__
+results/
