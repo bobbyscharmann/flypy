@@ -34,10 +34,12 @@ class BobsNN(torch.nn.Module):
         Y_hat = self.pipe(x)
         return Y_hat
 
-x_vals = np.linspace(0, 2000, 20000)
-X = torch.FloatTensor([x_vals, 2*x_vals+3 + 0 * np.random.uniform(0, 10, 20000)])
-x = X[:, 0]#torch.randn(2000, 1)
-y = X{:, 1]#torch.randn(2000, 1)
+x_vals = np.linspace(0, 2000, 2000)
+X = torch.FloatTensor([x_vals, 2*x_vals+3 + 0 * np.random.uniform(0, 10, 2000)])
+x = X[0, :].T#torch.randn(2000, 1)
+y = X[1, :].T#torch.randn(2000, 1)
+#x = torch.randn(2000, 1)
+#y = torch.randn(2000, 1)
 #X = x
 print(f"X.shape{X.shape}")
 model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
@@ -52,8 +54,8 @@ print(f"X.test{X_test.shape}")
 print(f"Y.test{Y_test.shape}")
 
 
-optimizer = torch.optim.Adam(params=model.parameters(), lr=0.01)
-criterion = torch.nn.MSELoss(reduction='sum')
+optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
+criterion = torch.nn.MSELoss(reduction='mean')
 for epoch in range(num_epochs):
     i = 0
   #  for batch in range(0, len(X_train), batch_size):
@@ -64,10 +66,9 @@ for epoch in range(num_epochs):
     #X_batch = X_train[batch:batch+batch_size]
     #print(f"X_batch.shape: {X_batch.shape}")
     #Y_batch = Y_train[batch:batch+batch_size]
-    #Y_batch = Y_batch.view(Y_batch.shape[0], -1)
+    Y_train = Y_train.view(Y_train.shape[0], -1)
     #print(f"Y_batch.shape: {Y_batch.shape}")
-    #Y_hat = model(X_batch.view(X_batch.shape[0], -1))
-    Y_hat = model(X_train)
+    Y_hat = model(X_train.view(X_train.shape[0], -1))
     #Y_hat = model(X_batch)
     loss = criterion(Y_hat, Y_train)
     if epoch % 100 == 0:
@@ -75,7 +76,7 @@ for epoch in range(num_epochs):
     loss.backward()
     optimizer.step()
 
-y = model(torch.FloatTensor([4]))
+y = model(torch.FloatTensor([1]))
 print(f"model prediction: {y}")
 y = model(torch.FloatTensor([3]))
 print(f"model prediction: {y}")
