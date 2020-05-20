@@ -94,7 +94,7 @@ for epoch in range(num_epochs):
 for file in os.listdir("results"):
     images.append(imageio.imread(os.path.join("results", file)))
 imageio.mimsave("replay.gif", images, fps=10)
-
+[os.remove(os.path.join("results", file)) for file in os.listdir("results")]
 
 y = model(torch.FloatTensor([1]))
 print(f"model prediction: {y}")
