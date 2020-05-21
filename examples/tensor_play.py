@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import imageio
 import os
@@ -37,21 +38,28 @@ class BobsNN(torch.nn.Module):
         Y_hat = self.pipe(x)
         return Y_hat
 
-x_vals = np.linspace(0, 1, 2000)
-X = torch.FloatTensor([x_vals, x_vals**3 + 2*x_vals**2+3 + 1 * np.random.uniform(0, 0.1, 2000)])
-#X = X / X.max(0, keepdim=True)[0]
-x = X[0, :].T #torch.randn(2000, 1)
-y = X[1, :].T#torch.randn(2000, 1)
+x_vals = np.linspace(0, 20, 2000)
+y_vals = np.sin(x_vals)#x_vals**3 + 2*x_vals**2 + 3
+xscaler = MinMaxScaler()
+yscaler = MinMaxScaler()
+xscaler.fit(x_vals.reshape(-1, 1))
+x_vals_scaled = xscaler.transform(x_vals.reshape(-1, 1))
+yscaler.fit(y_vals.reshape(-1, 1))
+y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
+X_orig = torch.FloatTensor([x_vals_scaled.reshape(1, -1), y_vals_scaled.reshape(1, -1)])
+#X = X_orig / X_orig.max(0, keepdim=True)[0]
+x = X_orig[0, :].T #torch.randn(2000, 1)
+y = X_orig[1, :].T#torch.randn(2000, 1)
 #x = x / x.max(0, keepdim=True)[0]
 #x = torch.randn(2000, 1)
 #y = torch.randn(2000, 1)
 #X = x
-print(f"X.shape{X.shape}")
+print(f"X_orig.shape{X_orig.shape}")
 model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
 #model = TwoLayerNet(1, 100, 1)
 #print(f"Model predictions: {y_pred}")
 batch_size = 2000
-num_epochs = 1000
+num_epochs = 4000
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 print(f"X.train{X_train.shape}")
 print(f"Y.train{Y_train.shape}")
@@ -82,8 +90,12 @@ for epoch in range(num_epochs):
             x_vals = torch.FloatTensor(np.linspace(0, 1, 2000))
             y_vals = model(x_vals.view(x_vals.shape[0], -1))
             fig = plt.figure()
-            plt.scatter(x_vals.detach().numpy(), y_vals.detach().numpy(), label="f_hat(X) (model estimate)")
-            plt.scatter(x, y, label="f(X) (truth data)")
+            plt.scatter(xscaler.inverse_transform(x_vals.detach().numpy().reshape(-1, 1)),
+                        yscaler.inverse_transform(y_vals.detach().numpy().reshape(-1, 1)),
+                        label="f_hat(X) (model estimate)")
+            x = X_orig[0, :].T  # torch.randn(2000, 1)
+            y = X_orig[1, :].T  # torch.randn(2000, 1)
+            plt.scatter(xscaler.inverse_transform(x), yscaler.inverse_transform(y), label="f(X) (truth data)")
             plt.xlabel("X")
             plt.ylabel("Y")
             plt.title(f"y=x^3 + 2x^2 + 3 @ epoch {epoch}")
