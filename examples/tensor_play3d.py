@@ -26,22 +26,21 @@ class BobsNN(torch.nn.Module):
         return Y_hat
 
 x_vals = np.vstack((np.linspace(0, 20, 2000), np.linspace(0, 20, 2000))).T
-#y_vals = np.zeros(x_vals.shape)
-#for idx, x in enumerate(x_vals):
-#    if idx < len(x_vals) / 3:
-#        y_vals[idx] = np.sin(x)
+y_vals = np.zeros((x_vals.shape[0], 1))
+for idx, x in enumerate(x_vals):
+    y_vals[idx] = np.sin(x[0]) * 0.01 * x[1]
 #    elif idx > 2 * len(x_vals) / 3:
 #        y_vals[idx] = 1
 #    else:
 #        y_vals[idx] = np.cos(x)
 
-y_vals = np.sin(x_vals)
+#y_vals = np.sin(x_vals)
 xscaler = MinMaxScaler()
 yscaler = MinMaxScaler()
 xscaler.fit(x_vals.reshape(-1, 2))
 x_vals_scaled = xscaler.transform(x_vals.reshape(-1, 2))
 yscaler.fit(y_vals.reshape(-1, 1))
-y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 2))
+y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
 X_orig = torch.FloatTensor([x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(2, -1)])
 x = X_orig[0:1, :].T
 y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
@@ -87,16 +86,19 @@ for epoch in range(num_epochs):
             x_vals = x_vals.view(dtype=float)
             y_vals = model(torch.FloatTensor(x_vals))
             fig = plt.figure()
+            ax = fig.add_subplot(111, projection='3d')
+
             tmp_x1 = xscaler.inverse_transform(x_vals.reshape(-1, 2))[:, 0]
             tmp_x2 = xscaler.inverse_transform(x_vals.reshape(-1, 2))[:, 1]
-            plt.scatter(tmp_x1,
+            tmp_y = yscaler.inverse_transform(y_vals.detach().numpy().reshape(-1, 1))
+            ax.scatter(tmp_x1,
                         tmp_x2,
-                        yscaler.inverse_transform(y_vals.detach().numpy().reshape(-1, 1)),
+                        tmp_y,
                         label="f_hat(X) (model estimate)")
             x1 = X_orig[0, :].T
             x2 = X_orig[1, :].T
-            y = X_orig[2, :].T
-            plt.scatter(xscaler.inverse_transform(x1),
+            #y = X_orig[2, :].T
+            ax.scatter(xscaler.inverse_transform(x1),
                         xscaler.inverse_transform(x2),
                         yscaler.inverse_transform(y), label="f(X) (truth data)")
             plt.xlabel("X")
