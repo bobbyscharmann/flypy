@@ -26,9 +26,12 @@ class BobsNN(torch.nn.Module):
         return Y_hat
 
 x_vals = np.vstack((np.linspace(0, 20, 2000), np.linspace(0, 20, 2000))).T
-y_vals = np.zeros((x_vals.shape[0], 1))
-for idx, x in enumerate(x_vals):
-    y_vals[idx] = np.sin(x[0]) * 0.01 * x[1]
+y_vals = np.zeros((x_vals.shape[0], x_vals.shape[0]))
+count = 0
+for idx1, val in enumerate(x_vals[0, :]):
+    for idx2, item in enumerate(x_vals[1, :]):
+        y_vals[idx1, idx2] = np.sin(val) * 0.01 * item
+        count += 1
 #    elif idx > 2 * len(x_vals) / 3:
 #        y_vals[idx] = 1
 #    else:
@@ -41,18 +44,21 @@ xscaler.fit(x_vals.reshape(-1, 2))
 x_vals_scaled = xscaler.transform(x_vals.reshape(-1, 2))
 yscaler.fit(y_vals.reshape(-1, 1))
 y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
-X_orig = torch.FloatTensor(np.vstack((x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(1, -1))))
+X_orig = torch.FloatTensor((x_vals_scaled.reshape(2, -1)))
+#X_orig = torch.FloatTensor(np.vstack((x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(2, 1))))
 x = X_orig[0:2, :].T
 y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
 
 model = BobsNN(n_inputs=2, n_outputs=1)#.to(device='cuda:0')
 batch_size = 2000
 num_epochs = 100
-X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
+#X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
+X_train = x
+Y_train = y
 print(f"X.train{X_train.shape}")
 print(f"Y.train{Y_train.shape}")
-print(f"X.test{X_test.shape}")
-print(f"Y.test{Y_test.shape}")
+#print(f"X.test{X_test.shape}")
+#print(f"Y.test{Y_test.shape}")
 
 
 optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
@@ -95,12 +101,14 @@ for epoch in range(num_epochs):
                         tmp_x2,
                         tmp_y,
                         label="f_hat(X) (model estimate)")
-            x1 = X_orig[0, :]
-            x2 = X_orig[1, :]
+            x1 = X_orig[0, :].reshape(-1, 1)
+            x2 = X_orig[1, :].reshape(-1, 1)
             #y = X_orig[2, :].T
-            ax.scatter(xscaler.inverse_transform(x1),
-                        xscaler.inverse_transform(x2),
-                        yscaler.inverse_transform(y), label="f(X) (truth data)")
+            tmp = xscaler.inverse_transform(X_orig[0:2, :].reshape(-1, 2))
+            new_y = yscaler.inverse_transform(y)
+            ax.scatter(tmp[:, 0],
+                       tmp[:, 1],
+                       new_y, label="f(X) (truth data)")
             plt.xlabel("X")
             plt.ylabel("Y")
             plt.title(f"y=sin(x) @ epoch {epoch}")
