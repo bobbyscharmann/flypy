@@ -41,8 +41,8 @@ xscaler.fit(x_vals.reshape(-1, 2))
 x_vals_scaled = xscaler.transform(x_vals.reshape(-1, 2))
 yscaler.fit(y_vals.reshape(-1, 1))
 y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
-X_orig = torch.FloatTensor([x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(2, -1)])
-x = X_orig[0:1, :].T
+X_orig = torch.FloatTensor(np.vstack((x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(1, -1))))
+x = X_orig[0:2, :].T
 y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
 
 model = BobsNN(n_inputs=2, n_outputs=1)#.to(device='cuda:0')
@@ -95,8 +95,8 @@ for epoch in range(num_epochs):
                         tmp_x2,
                         tmp_y,
                         label="f_hat(X) (model estimate)")
-            x1 = X_orig[0, :].T
-            x2 = X_orig[1, :].T
+            x1 = X_orig[0, :]
+            x2 = X_orig[1, :]
             #y = X_orig[2, :].T
             ax.scatter(xscaler.inverse_transform(x1),
                         xscaler.inverse_transform(x2),
