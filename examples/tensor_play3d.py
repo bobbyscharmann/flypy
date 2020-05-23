@@ -25,6 +25,15 @@ class BobsNN(torch.nn.Module):
         Y_hat = self.pipe(x)
         return Y_hat
 
+NUM_INPUT_FEATURES = 2
+NUM_SAMPLES = 2000         
+col1 = np.linspac e (0, 20, NUM_SAMPLES)
+col2 = np.linspace (0, 20, NUM_SAMPLES)
+x_vals = np.zeros(NUM_SAMPLES ** 2, NUM_INPUT_FEATURES)
+for idx1, x1 in enumerate(col1):
+    for idx2, x2 in enumerate(col2):
+       x_vals[idx1 * NUM_SAMPLES, ]
+
 x_vals = np.vstack((np.linspace(0, 20, 2000), np.linspace(0, 20, 2000))).T
 y_vals = np.zeros((x_vals.shape[0], x_vals.shape[0]))
 count = 0
