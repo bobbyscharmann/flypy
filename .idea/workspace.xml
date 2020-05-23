@@ -17,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/tensor_play3d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="113" column="42" selection-start-line="113" selection-start-column="42" selection-end-line="113" selection-end-column="42" />
+            <state relative-caret-position="76">
+              <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -408,17 +408,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tensor_play3d.py</url>
-          <line>127</line>
+          <line>125</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tensor_play3d.py</url>
-          <line>121</line>
+          <line>119</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tensor_play3d.py</url>
-          <line>117</line>
+          <line>114</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
@@ -468,17 +468,32 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>x_vals[:, 1]</expression-string>
+        <expression-string>model(X_train)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>x_vals.shape</expression-string>
+        <expression-string>model(X_train.view(-1, NUM_INPUT_FEATURES))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>tmp_x1.shape</expression-string>
+        <expression-string>model(X_train.T)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>X_train.shape</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>y[555], tmp_y[555]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>y.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -488,27 +503,12 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>x1.shape</expression-string>
+        <expression-string>ax.plot([1, 2], [3, 4], [5,6]), plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>plt.show()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>col2.shape</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>col1.shape</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tmp_x2.shape</expression-string>
+        <expression-string>ax.plot([1, 2], [3, 4], [5,6], plt.show())</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -692,8 +692,8 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/tensor_play3d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="113" column="42" selection-start-line="113" selection-start-column="42" selection-end-line="113" selection-end-column="42" />
+        <state relative-caret-position="76">
+          <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
