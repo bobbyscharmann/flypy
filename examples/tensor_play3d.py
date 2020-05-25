@@ -41,6 +41,7 @@ for idx1, x1 in enumerate(col1):
 y_vals = np.zeros((NUM_SAMPLES**2, 1))
 for idx, val in enumerate(x_vals):
     y_vals[idx] = 2 * (np.cos(val[0])) + 0.1 * val[1]
+    y_vals[idx] = val[0] * val[1]
 #    elif idx > 2 * len(x_vals) / 3:
 #        y_vals[idx] = 1
 #    else:
@@ -53,7 +54,7 @@ xscaler.fit(x_vals.reshape(-1, NUM_INPUT_FEATURES))
 x_vals_scaled = xscaler.transform(x_vals.reshape(-1, NUM_INPUT_FEATURES))
 yscaler.fit(y_vals.reshape(-1, 1))
 y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
-X_orig = torch.FloatTensor((x_vals_scaled.reshape(NUM_INPUT_FEATURES, -1)))
+X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
 #X_orig = torch.FloatTensor(np.vstack((x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(2, 1))))
 x = X_orig[0:2, :].T
 y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
@@ -105,6 +106,14 @@ for epoch in range(num_epochs):
             tmp_x2 = x_vals[:, 1]
             #tmp_y = yscaler.inverse_transform(y_vals.detach().numpy())
             tmp_y = y_vals.detach().numpy()
+
+            #ax = plt.figure()
+            #X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
+            #tmp_x = xscaler.inverse_transform(X_orig)
+            #plt.scatter(range(len(y)), tmp_x[:, 0])
+            #plt.show()
+
+
             #tmp_y = tmp_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
             #tmp_y = y_vals.detach().numpy().reshape(NUM_SAMPLES, NUM_SAMPLES)
             #tmp_y = yscaler.inverse_transform(y_vals.detach().numpy().reshape(NUM_SAMPLES, NUM_SAMPLES))
@@ -115,8 +124,9 @@ for epoch in range(num_epochs):
             ax.scatter(x_vals[:, 0],
                        x_vals[:, 1],
                        tmp_y,
-                       s=10*np.ones(x_vals[:,0].shape), c=range(NUM_SAMPLES**2),
+                       s=10*np.ones(x_vals[:, 0].shape), c=range(NUM_SAMPLES**2),
                        label="f_hat(X) (model estimate)")
+            plt.show()
             x1 = X_orig[0, :].reshape(-1, 1)
             x2 = X_orig[1, :].reshape(-1, 1)
             #y = X_orig[2, :].T

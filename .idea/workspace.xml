@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/replay.gif" beforeDir="false" afterPath="$PROJECT_DIR$/examples/replay.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/tensor_play3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tensor_play3d.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,31 +17,10 @@
         <entry file="file://$PROJECT_DIR$/examples/tensor_play3d.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
-              <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+              <caret line="56" column="72" selection-start-line="56" selection-start-column="72" selection-end-line="56" selection-end-column="72" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/tensor_play.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
@@ -367,15 +345,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.62979686" visible="true" weight="0.23417722" />
-      <window_info id="Structure" order="1" sideWeight="0.37020317" side_tool="true" visible="true" weight="0.23417722" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.62628865" visible="true" weight="0.23417722" />
+      <window_info id="Structure" order="1" sideWeight="0.37371135" side_tool="true" visible="true" weight="0.23417722" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.49486887" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8507384" weight="0.3432155" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.49486887" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.8507384" visible="true" weight="0.5575827" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49893162" weight="0.3295325" />
@@ -408,17 +385,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tensor_play3d.py</url>
-          <line>125</line>
+          <line>127</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tensor_play3d.py</url>
-          <line>119</line>
+          <line>121</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tensor_play3d.py</url>
-          <line>114</line>
+          <line>115</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
@@ -427,88 +404,125 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>ax.scatter(x_vals[:, 0],
-            x_vals[:, 1],
-            tmp_y,
-            label=&quot;f_hat(X) (model estimate)&quot;)</expression-string>
+        <expression-string>ax = plt.figure()
+X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
+tmp_x = xscaler.inverse_transform(X_orig)
+plt.scatter(range(len(y)), tmp_x[:, 0])
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Y_hat = model(X_batch.cuda().view(X_batch.shape[0], -1))</expression-string>
+        <expression-string>ax = plt.figure()
+tmp_x = xscaler.inverse_transform(X_orig)
+plt.scatter(range(len(y)), tmp_x[:, 0])
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Y_hat = model(X_batch.view(X_batch.shape[0], -1))</expression-string>
+        <expression-string>ax = plt.figure()
+tmp_x = xscaler.inverse_transform(x_vals_scaled)
+plt.scatter(range(len(y)), tmp_x[:, 0])
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Y_hat = model(X_batch.view(X_batch.shape[0].to(device='cudo:0'), -1))</expression-string>
+        <expression-string>ax = plt.figure()
+tmp_x = xscaler.inverse_transform(x)
+plt.scatter(range(len(y)), tmp_x[:, 0])
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print(f&quot;X.train{X_train.shape}&quot;)
-print(f&quot;Y.train{Y_train.shape}&quot;)
-print(f&quot;X.test{X_test.shape}&quot;)
-print(f&quot;Y.test{Y_test.shape}&quot;)</expression-string>
+        <expression-string>ax = plt.figure()
+tmp_x = xscaler.inverse_transform(X_train)
+plt.scatter(range(len(y)), tmp_x[:, 0])
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print(f&quot;X.train{X_train.shape}&quot;)
-print(f&quot;Y.train{Y_train.shape}&quot;)
-print(f&quot;X.test{X_test.shape}&quot;)
-print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
+        <expression-string>ax = plt.figure()
+tmp_x = xscaler.inverse_transform(X_train)
+#plt.scatter(range(len(y)), xscaler.inverse_transform(X_train[:, 0]).reshape(1, -1))
+plt.show()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ax = plt.figure()
+tmp_x = xscaler.inverse_transform(X_train)
+plt.scatter(range(len(y)), xscaler.inverse_transform(X_train[:, 0]).reshape(1, -1))
+plt.show()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ax = plt.figure()
+plt.scatter(range(len(y)), xscaler.inverse_transform(X_train[:, 0]).reshape(1, -1))
+plt.show()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ax = plt.figure()
+plt.scatter(range(len(y)), xscaler.inverse_transform(X_train[:, 0]).reshape(-1, 1))
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>model(X_train)</expression-string>
+        <expression-string>ax = plt.figure(),plt.scatter(range(len(y)), xscaler.inverse_transform(x[:, 0])), plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model(X_train.view(-1, NUM_INPUT_FEATURES))</expression-string>
+        <expression-string>ax = plt.figure(),plt.scatter(range(len(y)), xscaler.inverse_transform(x[:, 0]), plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model(X_train.T)</expression-string>
+        <expression-string>x[:, 0].shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>X_train.shape</expression-string>
+        <expression-string>x[0, :].shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>y[555], tmp_y[555]</expression-string>
+        <expression-string>x.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>y.shape</expression-string>
+        <expression-string>xscaler.inverse_transform(X_orig[0, :])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>tmp_y.shape</expression-string>
+        <expression-string>xscaler.inverse_transform(X_orig[:, 0])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ax.plot([1, 2], [3, 4], [5,6]), plt.show()</expression-string>
+        <expression-string>xscaler.inverse_transform(X_orig)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ax.plot([1, 2], [3, 4], [5,6], plt.show())</expression-string>
+        <expression-string>ax = plt.figure(),plt.scatter(range(len(y)), xscaler.inverse_transform(X_orig)[:, 0]), plt.show()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ax = plt.figure(),plt.scatter(range(len(y)), xscaler.inverse_transform(X_orig))[:, 0], plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -618,10 +632,13 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/torch/optim/adam.py">
+    <entry file="file://$PROJECT_DIR$/examples/tensor_play.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="1501">
+          <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -673,6 +690,9 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -680,20 +700,17 @@ print(f&quot;Y.test{Y_test.shape}&quot;</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/tensor_play.py">
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/torch/optim/adam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="589">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/tensor_play3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
-          <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+          <caret line="56" column="72" selection-start-line="56" selection-start-column="72" selection-end-line="56" selection-end-column="72" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
