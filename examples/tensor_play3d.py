@@ -26,7 +26,7 @@ class BobsNN(torch.nn.Module):
         return Y_hat
 
 NUM_INPUT_FEATURES = 2
-NUM_SAMPLES = 100
+NUM_SAMPLES = 200
 col1 = np.linspace (0, 20, NUM_SAMPLES)
 col2 = np.linspace (0, 20, NUM_SAMPLES)
 x_vals = np.zeros((NUM_SAMPLES ** 2, NUM_INPUT_FEATURES))
@@ -41,7 +41,7 @@ for idx1, x1 in enumerate(col1):
 y_vals = np.zeros((NUM_SAMPLES**2, 1))
 for idx, val in enumerate(x_vals):
     y_vals[idx] = 2 * (np.cos(val[0])) + 0.1 * val[1]
-    y_vals[idx] = val[0] * val[1]
+    #y_vals[idx] = val[0] * val[1]
 #    elif idx > 2 * len(x_vals) / 3:
 #        y_vals[idx] = 1
 #    else:
@@ -56,12 +56,12 @@ yscaler.fit(y_vals.reshape(-1, 1))
 y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
 X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
 #X_orig = torch.FloatTensor(np.vstack((x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(2, 1))))
-x = X_orig[0:2, :].T
+x = X_orig[:, 0:2]
 y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
 
 model = BobsNN(n_inputs=NUM_INPUT_FEATURES, n_outputs=1)#.to(device='cuda:0')
 batch_size = NUM_SAMPLES**2
-num_epochs = 20000
+num_epochs = 1000
 #X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 X_train = x
 Y_train = y
@@ -93,7 +93,11 @@ for epoch in range(num_epochs):
             print(f"Epoch: {epoch}, Batch: {batch_num}, Loss: {loss.item()}")
         loss.backward()
         optimizer.step()
-
+#ax = plt.figure()
+#X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
+#tmp_x = xscaler.inverse_transform(X_orig)
+#plt.scatter(range(len(y)), tmp_x[:, 0])
+#plt.show()
         # Every ten epochs, test out the model
         if epoch % (num_epochs / 100) == 0:
             y_vals = model(X_train)
@@ -126,24 +130,21 @@ for epoch in range(num_epochs):
                        tmp_y,
                        s=10*np.ones(x_vals[:, 0].shape), c=range(NUM_SAMPLES**2),
                        label="f_hat(X) (model estimate)")
-            plt.show()
+            #plt.show()
             x1 = X_orig[0, :].reshape(-1, 1)
             x2 = X_orig[1, :].reshape(-1, 1)
             #y = X_orig[2, :].T
-            tmp = xscaler.inverse_transform(X_orig[0:NUM_INPUT_FEATURES, :].reshape(-1, NUM_INPUT_FEATURES))
-            new_y = y#yscaler.inverse_transform(y)
-            new_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
-            ax.scatter(tmp[:, 0], tmp[:, 1], new_y, label="f(X) (truth data)")
+            tmp = xscaler.inverse_transform(X_orig)
+            #new_y = y#yscaler.inverse_transform(y)
+            #new_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
+            ax.scatter(tmp[:, 0], tmp[:, 1], y, label="f(X) (truth data)")
             plt.xlabel("X")
             plt.ylabel("Y")
             plt.title(f"y=sin(x) @ epoch {epoch}")
             plt.legend()
             #plt.show()
             plt.savefig(os.path.join("results", f"epoch_{epoch}"))
-            if epoch == num_epochs-1:
-                plt.show()
-            else:
-                plt.close()
+            plt.close()
 
 # Append all the images into a list for imageio
 for file in os.listdir("results"):
