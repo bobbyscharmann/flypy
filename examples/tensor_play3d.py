@@ -27,8 +27,10 @@ class BobsNN(torch.nn.Module):
 
 NUM_INPUT_FEATURES = 2
 NUM_SAMPLES = 100
-col1 = np.linspace (0, 20, NUM_SAMPLES)
-col2 = np.linspace (0, 20, NUM_SAMPLES)
+num_epochs = 10000
+#X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
+col1 = np.linspace (-1, 1, NUM_SAMPLES)
+col2 = np.linspace (-1, 1, NUM_SAMPLES)
 x_vals = np.zeros((NUM_SAMPLES ** 2, NUM_INPUT_FEATURES))
 count = 0
 for idx1, x1 in enumerate(col1):
@@ -42,6 +44,7 @@ y_vals = np.zeros((NUM_SAMPLES**2, 1))
 for idx, val in enumerate(x_vals):
     #y_vals[idx] = 2 * (np.cos(val[0])) + 2.0 * np.sin(val[1])
     y_vals[idx] = np.sin(val[0]) * np.cos(val[1])
+    y_vals[idx] = np.sin(10*(val[0]**2 + val[1]**2))/10
 #    elif idx > 2 * len(x_vals) / 3:
 #        y_vals[idx] = 1
 #    else:
@@ -61,8 +64,6 @@ y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
 
 model = BobsNN(n_inputs=NUM_INPUT_FEATURES, n_outputs=1)#.to(device='cuda:0')
 batch_size = NUM_SAMPLES**2
-num_epochs = 10000
-#X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 X_train = x
 Y_train = y
 print(f"X.train{X_train.shape}")
@@ -137,10 +138,10 @@ for epoch in range(num_epochs):
             tmp = xscaler.inverse_transform(X_orig)
             #new_y = y#yscaler.inverse_transform(y)
             #new_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
-            ax.scatter(tmp[:, 0], tmp[:, 1], y, label="f(X) (truth data)")
+            #ax.scatter(tmp[:, 0], tmp[:, 1], y, label="f(X) (truth data)")
             plt.xlabel("X")
             plt.ylabel("Y")
-            plt.title(f"y=sin(x) @ epoch {epoch}")
+            plt.title(f"y = sin(10*(x^2 + y^2))/10 @ epoch {epoch}")
             plt.legend()
             #plt.show()
             plt.savefig(os.path.join("results", f"epoch_{epoch}"))
