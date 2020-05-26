@@ -26,7 +26,7 @@ class BobsNN(torch.nn.Module):
         return Y_hat
 
 NUM_INPUT_FEATURES = 2
-NUM_SAMPLES = 200
+NUM_SAMPLES = 100
 col1 = np.linspace (0, 20, NUM_SAMPLES)
 col2 = np.linspace (0, 20, NUM_SAMPLES)
 x_vals = np.zeros((NUM_SAMPLES ** 2, NUM_INPUT_FEATURES))
@@ -40,8 +40,8 @@ for idx1, x1 in enumerate(col1):
 #x_vals = np.vstack((np.linspace(0, 20, 2000), np.linspace(0, 20, 2000))).T
 y_vals = np.zeros((NUM_SAMPLES**2, 1))
 for idx, val in enumerate(x_vals):
-    y_vals[idx] = 2 * (np.cos(val[0])) + 0.1 * val[1]
-    #y_vals[idx] = val[0] * val[1]
+    #y_vals[idx] = 2 * (np.cos(val[0])) + 2.0 * np.sin(val[1])
+    y_vals[idx] = np.sin(val[0]) * np.cos(val[1])
 #    elif idx > 2 * len(x_vals) / 3:
 #        y_vals[idx] = 1
 #    else:
@@ -61,7 +61,7 @@ y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
 
 model = BobsNN(n_inputs=NUM_INPUT_FEATURES, n_outputs=1)#.to(device='cuda:0')
 batch_size = NUM_SAMPLES**2
-num_epochs = 1000
+num_epochs = 10000
 #X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 X_train = x
 Y_train = y
