@@ -46,9 +46,9 @@ X_orig = torch.FloatTensor([x_vals_scaled.reshape(1, -1), y_vals_scaled.reshape(
 x = X_orig[0, :].T
 y = X_orig[1, :].T
 
-model = BobsNN(n_inputs=1, n_outputs=1).to(device='cuda:0')
-batch_size = 256
-num_epochs = 1000
+model = BobsNN(n_inputs=1, n_outputs=1)#.to(device='cuda:0')
+batch_size = 2000
+num_epochs = 2000
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 print(f"X.train{X_train.shape}")
 print(f"Y.train{Y_train.shape}")
@@ -103,7 +103,7 @@ for file in os.listdir("results"):
     images.append(imageio.imread(os.path.join("results", file)))
 
 # Actually create the GIF
-imageio.mimsave("replay.gif", images, fps=10)
+imageio.mimsave("sine_wave.gif", images, fps=10)
 
 # Clean up all the temporary images - surely there is a better way to do this with imageio without writing out
 # all the images, but I struggled to make it work and this was simple

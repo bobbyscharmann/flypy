@@ -16,9 +16,9 @@ class BobsNN(torch.nn.Module):
         super(BobsNN, self).__init__()
         self.pipe = torch.nn.Sequential(torch.nn.Linear(n_inputs, 100),
                                         torch.nn.ReLU(),
-                                        torch.nn.Linear(100, 32),
+                                        torch.nn.Linear(100, 64),
                                         torch.nn.ReLU(),
-                                        torch.nn.Linear(32, n_outputs),
+                                        torch.nn.Linear(64, n_outputs),
                                         )
 
     def forward(self, x):
@@ -26,7 +26,7 @@ class BobsNN(torch.nn.Module):
         return Y_hat
 
 NUM_INPUT_FEATURES = 2
-NUM_SAMPLES = 100
+NUM_SAMPLES = 200
 num_epochs = 10000
 #X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=42)
 col1 = np.linspace (-1, 1, NUM_SAMPLES)
@@ -129,7 +129,7 @@ for epoch in range(num_epochs):
             ax.scatter(x_vals[:, 0],
                        x_vals[:, 1],
                        tmp_y,
-                       s=10*np.ones(x_vals[:, 0].shape), c=range(NUM_SAMPLES**2),
+                       s=10*np.ones(x_vals[:, 0].shape), c=tmp_y,#range(NUM_SAMPLES**2),
                        label="f_hat(X) (model estimate)")
             #plt.show()
             x1 = X_orig[0, :].reshape(-1, 1)
@@ -152,7 +152,7 @@ for file in os.listdir("results"):
     images.append(imageio.imread(os.path.join("results", file)))
 
 # Actually create the GIF
-imageio.mimsave("replay.gif", images, fps=10)
+imageio.mimsave("ripple.gif", images, fps=10)
 
 # Clean up all the temporary images - surely there is a better way to do this with imageio without writing out
 # all the images, but I struggled to make it work and this was simple
