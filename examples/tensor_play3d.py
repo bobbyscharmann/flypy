@@ -138,7 +138,7 @@ for epoch in range(num_epochs):
             tmp = xscaler.inverse_transform(X_orig)
             #new_y = y#yscaler.inverse_transform(y)
             #new_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
-            #ax.scatter(tmp[:, 0], tmp[:, 1], y, label="f(X) (truth data)")
+            ax.scatter(tmp[:, 0], tmp[:, 1], y, label="f(X) (truth data)", alpha=0.1)
             plt.xlabel("X")
             plt.ylabel("Y")
             plt.title(f"y = sin(10*(x^2 + y^2))/10 @ epoch {epoch}")
