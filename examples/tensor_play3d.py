@@ -1,3 +1,4 @@
+"""This file will train a neural network to learn a 3D function."""
 import imageio
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,8 +19,7 @@ class BobsNN(torch.nn.Module):
                                         torch.nn.ReLU(),
                                         torch.nn.Linear(100, 64),
                                         torch.nn.ReLU(),
-                                        torch.nn.Linear(64, n_outputs),
-                                        )
+                                        torch.nn.Linear(64, n_outputs))
 
     def forward(self, x):
         Y_hat = self.pipe(x)
@@ -42,15 +42,9 @@ for idx1, x1 in enumerate(col1):
 #x_vals = np.vstack((np.linspace(0, 20, 2000), np.linspace(0, 20, 2000))).T
 y_vals = np.zeros((NUM_SAMPLES**2, 1))
 for idx, val in enumerate(x_vals):
-    #y_vals[idx] = 2 * (np.cos(val[0])) + 2.0 * np.sin(val[1])
     y_vals[idx] = np.sin(val[0]) * np.cos(val[1])
     y_vals[idx] = np.sin(10*(val[0]**2 + val[1]**2))/10
-#    elif idx > 2 * len(x_vals) / 3:
-#        y_vals[idx] = 1
-#    else:
-#        y_vals[idx] = np.cos(x)
 
-#y_vals = np.sin(x_vals)
 xscaler = MinMaxScaler()
 yscaler = MinMaxScaler()
 xscaler.fit(x_vals.reshape(-1, NUM_INPUT_FEATURES))
@@ -58,7 +52,6 @@ x_vals_scaled = xscaler.transform(x_vals.reshape(-1, NUM_INPUT_FEATURES))
 yscaler.fit(y_vals.reshape(-1, 1))
 y_vals_scaled = yscaler.transform(y_vals.reshape(-1, 1))
 X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
-#X_orig = torch.FloatTensor(np.vstack((x_vals_scaled.reshape(2, -1), y_vals_scaled.reshape(2, 1))))
 x = X_orig[:, 0:2]
 y = torch.FloatTensor(y_vals_scaled)#X_orig[2, :].T
 
@@ -68,8 +61,6 @@ X_train = x
 Y_train = y
 print(f"X.train{X_train.shape}")
 print(f"Y.train{Y_train.shape}")
-#print(f"X.test{X_test.shape}")
-#print(f"Y.test{Y_test.shape}")
 
 
 optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
@@ -94,56 +85,29 @@ for epoch in range(num_epochs):
             print(f"Epoch: {epoch}, Batch: {batch_num}, Loss: {loss.item()}")
         loss.backward()
         optimizer.step()
-#ax = plt.figure()
-#X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
-#tmp_x = xscaler.inverse_transform(X_orig)
-#plt.scatter(range(len(y)), tmp_x[:, 0])
-#plt.show()
+
         # Every ten epochs, test out the model
         if epoch % (num_epochs / 100) == 0:
             y_vals = model(X_train)
             fig = plt.figure(figsize=(13,11))
             ax = fig.add_subplot(111, projection='3d')
-            #print(f" Predicted: {y_vals[420]} and was: {Y_train[420]}")
-            #tmp_x1 = xscaler.inverse_transform(x_vals.reshape(-1, NUM_INPUT_FEATURES))[:, 0]
-            #tmp_x2 = xscaler.inverse_transform(x_vals.reshape(-1, NUM_INPUT_FEATURES))[:, 1]
             tmp_x1 = x_vals[:, 0]
             tmp_x2 = x_vals[:, 1]
-            #tmp_y = yscaler.inverse_transform(y_vals.detach().numpy())
             tmp_y = y_vals.detach().numpy()
 
-            #ax = plt.figure()
-            #X_orig = torch.FloatTensor((x_vals_scaled.reshape(-1, NUM_INPUT_FEATURES)))
-            #tmp_x = xscaler.inverse_transform(X_orig)
-            #plt.scatter(range(len(y)), tmp_x[:, 0])
-            #plt.show()
-
-
-            #tmp_y = tmp_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
-            #tmp_y = y_vals.detach().numpy().reshape(NUM_SAMPLES, NUM_SAMPLES)
-            #tmp_y = yscaler.inverse_transform(y_vals.detach().numpy().reshape(NUM_SAMPLES, NUM_SAMPLES))
-            #ax.scatter(tmp_x1,
-            #           tmp_x2,
-            #           tmp_y,
-            #           label="f_hat(X) (model estimate)")
             ax.scatter(x_vals[:, 0],
                        x_vals[:, 1],
                        tmp_y,
                        s=10*np.ones(x_vals[:, 0].shape), c=tmp_y,#range(NUM_SAMPLES**2),
                        label="f_hat(X) (model estimate)")
-            #plt.show()
             x1 = X_orig[0, :].reshape(-1, 1)
             x2 = X_orig[1, :].reshape(-1, 1)
-            #y = X_orig[2, :].T
             tmp = xscaler.inverse_transform(X_orig)
-            #new_y = y#yscaler.inverse_transform(y)
-            #new_y.reshape(NUM_SAMPLES, NUM_SAMPLES)
             ax.scatter(tmp[:, 0], tmp[:, 1], y, label="f(X) (truth data)", alpha=0.1)
             plt.xlabel("X")
             plt.ylabel("Y")
             plt.title(f"y = sin(10*(x^2 + y^2))/10 @ epoch {epoch}")
             plt.legend()
-            #plt.show()
             plt.savefig(os.path.join("results", f"epoch_{epoch}"))
             plt.close()
 

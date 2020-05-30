@@ -35,7 +35,7 @@ for iter in range(100000):
 
     # multiply how much we missed by the 
     # slope of the sigmoid at the values in l1
-    l1_delta = l1_error * nonlin(l1,True)
+    l1_delta = l1_error * nonlin(l1, True)
 
     # update weights
     syn0 += np.dot(l0.T,l1_delta)
