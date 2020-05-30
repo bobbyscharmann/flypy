@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
+            <state relative-caret-position="17">
+              <caret line="140" column="19" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
               <folding>
                 <element signature="e#80#90#0" expanded="true" />
               </folding>
@@ -295,13 +297,13 @@
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6174112" visible="true" weight="0.18637803" />
-      <window_info id="Structure" order="1" sideWeight="0.38258877" side_tool="true" visible="true" weight="0.18637803" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6165413" visible="true" weight="0.18637803" />
+      <window_info id="Structure" order="1" sideWeight="0.38345864" side_tool="true" visible="true" weight="0.18637803" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3906071" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8507384" weight="0.556701" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3906071" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8507384" weight="0.5555556" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49893162" weight="0.3295325" />
@@ -410,6 +412,36 @@ plt.show()</expression-string>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>reward_b</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>batch[0].reward</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>batch</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>rewards</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>type(rewards)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>s.reward</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>act_v.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -426,31 +458,6 @@ plt.show()</expression-string>
       </expression>
       <expression>
         <expression-string>net(obs_v)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>obs_v.shape</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ax = plt.figure(),plt.scatter(range(len(y)), xscaler.inverse_transform(x[:, 0])), plt.show()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ax = plt.figure(),plt.scatter(range(len(y)), xscaler.inverse_transform(x[:, 0]), plt.show()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>x[:, 0].shape</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>x[0, :].shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -667,10 +674,17 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/gym/wrappers/monitoring/video_recorder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="257" lean-forward="true" selection-start-line="257" selection-end-line="257" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
+        <state relative-caret-position="17">
+          <caret line="140" column="19" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
           <folding>
             <element signature="e#80#90#0" expanded="true" />
           </folding>
