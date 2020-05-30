@@ -20,7 +20,7 @@ while not done:
     # Accumulate steps and awards
     steps += 1
     total_reward += reward
-    #env.render()
+    env.render()
 
 # Print some general information about the episode
 print(f"Total Reward in {total_reward} in {steps} steps.")
