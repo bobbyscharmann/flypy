@@ -1,68 +1,57 @@
-"""This function is used to implement the cross entropy method for Cartpole"""
-
+#!/usr/bin/env python3
 import gym
-import numpy as np
-import torch
 from collections import namedtuple
+import numpy as np
 
-# COnfiguration options
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+
 HIDDEN_SIZE = 128
 BATCH_SIZE = 16
 PERCENTILE = 70
 
-# Define a neural network to map observations to actions
-class CrossEntropyNN(torch.nn.Module):
 
+class Net(nn.Module):
     def __init__(self, obs_size, hidden_size, n_actions):
-        super(CrossEntropyNN, self).__init__()
-        self.net = torch.nn.Sequential(torch.nn.Linear(obs_size, hidden_size),
-                                       torch.nn.ReLU(),
-                                       torch.nn.Linear(hidden_size, n_actions))
-
+        super(Net, self).__init__()
+        self.net = nn.Sequential(
+            nn.Linear(obs_size, hidden_size),
+            nn.ReLU(),
+            nn.Linear(hidden_size, n_actions)
+        )
 
     def forward(self, x):
-        y_hat = self.net(x)
-        return y_hat
+        return self.net(x)
 
-# Represents a single episode stores as the total undiscounted reward
+
 Episode = namedtuple('Episode', field_names=['reward', 'steps'])
-
-# Represents a single step that our agent made in the episode aong with the observation from the environment and what
-# action was completed
 EpisodeStep = namedtuple('EpisodeStep', field_names=['observation', 'action'])
+
 
 def iterate_batches(env, net, batch_size):
     batch = []
     episode_reward = 0.0
     episode_steps = []
     obs = env.reset()
-    sm = torch.nn.Softmax(dim=1)
-
+    sm = nn.Softmax(dim=1)
     while True:
         obs_v = torch.FloatTensor([obs])
         act_probs_v = sm(net(obs_v))
-
-        # Both the NN and softmax return tensor that compute gradients so use .data to convert to numpy array
         act_probs = act_probs_v.data.numpy()[0]
-
         action = np.random.choice(len(act_probs), p=act_probs)
         next_obs, reward, is_done, _ = env.step(action)
-
         episode_reward += reward
-        step = EpisodeStep(observation=obs, action=action)
-        episode_steps.append(step)
-
+        episode_steps.append(EpisodeStep(observation=obs, action=action))
         if is_done:
-            e = Episode(reward=episode_reward, steps=episode_steps)
-            batch.append(e)
+            batch.append(Episode(reward=episode_reward, steps=episode_steps))
             episode_reward = 0.0
             episode_steps = []
             next_obs = env.reset()
-
             if len(batch) == batch_size:
                 yield batch
                 batch = []
-
         obs = next_obs
 
 
@@ -73,7 +62,6 @@ def filter_batch(batch, percentile):
 
     train_obs = []
     train_act = []
-
     for example in batch:
         if example.reward < reward_bound:
             continue
@@ -87,31 +75,23 @@ def filter_batch(batch, percentile):
 
 if __name__ == "__main__":
     env = gym.make("CartPole-v0")
-    env.reset()
-
     # env = gym.wrappers.Monitor(env, directory="mon", force=True)
-
     obs_size = env.observation_space.shape[0]
     n_actions = env.action_space.n
 
-    net = CrossEntropyNN(obs_size, HIDDEN_SIZE, n_actions)
-    objective = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(params=net.parameters(), lr=0.01)
-    #writer = torch.utils.tensorboard.SummaryWriter(comment="-cartpole")
+    net = Net(obs_size, HIDDEN_SIZE, n_actions)
+    objective = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(params=net.parameters(), lr=0.01)
 
-    episode_number = 1
     for iter_no, batch in enumerate(iterate_batches(env, net, BATCH_SIZE)):
-        obs_v, act_v, reward_b, reward_m = filter_batch(batch, PERCENTILE)
+        obs_v, acts_v, reward_b, reward_m = filter_batch(batch, PERCENTILE)
         optimizer.zero_grad()
         action_scores_v = net(obs_v)
-        loss_v = objective(action_scores_v, act_v)
+        loss_v = objective(action_scores_v, acts_v)
         loss_v.backward()
         optimizer.step()
-        print(f"Episode: {iter_no}, Reward: {reward_m}, Loss: {loss_v}")
-
+        print("%d: loss=%.3f, reward_mean=%.1f, reward_bound=%.1f" % (
+            iter_no, loss_v.item(), reward_m, reward_b))
         if reward_m > 199:
-            env.render()
-            print(f"SOLVED: {reward_m}")
+            print("Solved!")
             break
-        episode_number += 1
-
