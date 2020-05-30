@@ -1,28 +1,25 @@
-"""This function is used to implement the cross entropy method for Cartpole"""
+"""This function is used to implement the cross entropy method for Cartpole.
+
+The idea here is to balance the cartpole OpenAI Gym environment using the Cross Entropy RL Method. Essentially this is
+a model-free (no apriori knowledge of the environment is assumed), policy-based (select next action based on probability
+distribution of the action space), and on-policy which means it uses fresh data to infer the next action.
+
+A Simple neural network is trained to learn the behavior to map observations to actions with the 30% of actions
+resulting in the most reward being selected for model training.
+
+Author: Bob Scharmann
+Reference: Deep Reinforcement Learning Hands-On by Maxim Lapan
+"""
 
 import gym
 import numpy as np
 import torch
 from collections import namedtuple
 
-# COnfiguration options
+# Configuration options
 HIDDEN_SIZE = 128
 BATCH_SIZE = 16
 PERCENTILE = 70
-
-# Define a neural network to map observations to actions
-class CrossEntropyNN(torch.nn.Module):
-
-    def __init__(self, obs_size, hidden_size, n_actions):
-        super(CrossEntropyNN, self).__init__()
-        self.net = torch.nn.Sequential(torch.nn.Linear(obs_size, hidden_size),
-                                       torch.nn.ReLU(),
-                                       torch.nn.Linear(hidden_size, n_actions))
-
-
-    def forward(self, x):
-        y_hat = self.net(x)
-        return y_hat
 
 # Represents a single episode stores as the total undiscounted reward
 Episode = namedtuple('Episode', field_names=['reward', 'steps'])
@@ -31,13 +28,37 @@ Episode = namedtuple('Episode', field_names=['reward', 'steps'])
 # action was completed
 EpisodeStep = namedtuple('EpisodeStep', field_names=['observation', 'action'])
 
+
+# Define a neural network to map observations to actions
+class CrossEntropyNN(torch.nn.Module):
+
+    def __init__(self, obs_size, hidden_size, n_actions):
+        """obs_size - number of elements in this Gym's Observation space
+           hidden_size - number of neurons in the hidden layer
+           n_actions - size of the possible action space within this Gym environment"""
+
+        super(CrossEntropyNN, self).__init__()
+        self.net = torch.nn.Sequential(torch.nn.Linear(obs_size, hidden_size),
+                                       torch.nn.ReLU(),
+                                       torch.nn.Linear(hidden_size, n_actions))
+
+    def forward(self, x):
+        y_hat = self.net(x)
+        return y_hat
+
+
+# Generator function to iterate over batches
 def iterate_batches(env, net, batch_size):
+    # Initialize common variables and reset the Gym environment
     batch = []
     episode_reward = 0.0
     episode_steps = []
     obs = env.reset()
+
+    # Softmax will convert logits to a probabilistic distribution from which the agent will select the next action.
     sm = torch.nn.Softmax(dim=1)
 
+    # Generator (uses yield) to relinquish control to calling function so don't worry about an infinite loop
     while True:
         obs_v = torch.FloatTensor([obs])
         act_probs_v = sm(net(obs_v))
