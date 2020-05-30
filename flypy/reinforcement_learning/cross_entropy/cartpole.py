@@ -66,6 +66,7 @@ def iterate_batches(env, net, batch_size):
         obs = next_obs
 
 
+# This function will filter a batch of data using a percentile threshold
 def filter_batch(batch, percentile):
     rewards = list(map(lambda s: s.reward, batch))
     reward_bound = np.percentile(rewards, percentile)
