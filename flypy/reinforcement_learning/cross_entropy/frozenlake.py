@@ -20,6 +20,7 @@ from collections import namedtuple
 HIDDEN_SIZE = 128
 BATCH_SIZE = 100
 PERCENTILE = 70
+GAMMA = 0.95  # discount factor
 
 # Represents a single episode stores as the total undiscounted reward
 Episode = namedtuple('Episode', field_names=['reward', 'steps'])
@@ -123,31 +124,34 @@ def iterate_batches(env, net, batch_size):
 # This function will filter a batch of data using a percentile threshold
 def filter_batch(batch, percentile):
     # Take the batch namedtuple and extract out a list of the rewards
-    rewards = list(map(lambda s: s.reward, batch))
+    filter_fun = lambda s: s.reward * (GAMMA ** len(s.steps))
+    disc_rewards = list(map(filter_fun, batch))
 
     # Compute the reward value of which PERCENTILE (say 70%) of episodes were lower than
-    reward_bound = np.percentile(rewards, percentile)
+    reward_bound = np.percentile(disc_rewards, percentile)
 
     # Find the mean reward value - useful for determining if the Agent is getting better or worse
-    reward_mean = float(np.mean(rewards))
+    reward_mean = float(np.mean(disc_rewards))
 
     train_obs = []
     train_act = []
+    elite_batch = []
 
     # Look at each example and see if it should be included or removed
-    for example in batch:
+    for example, disc_rewards in zip(batch, disc_rewards):
         # If it's less than the desired percentile boundary, ignore it (not a good example to train on)
-        if example.reward < reward_bound:
+        if disc_rewards < reward_bound:
             continue
 
         # Add the example to the observation and action space for training
         train_obs.extend(map(lambda step: step.observation, example.steps))
         train_act.extend(map(lambda step: step.action, example.steps))
+        elite_batch.append(example)
 
     # Convert these to torch types for use in training (32-bit float, actions or 64-bit signed integer)
     train_obs_v = torch.FloatTensor(train_obs)
     train_act_v = torch.LongTensor(train_act)
-    return train_obs_v, train_act_v, reward_bound, reward_mean
+    return elite_batch, train_obs_v, train_act_v, reward_bound
 
 
 if __name__ == "__main__":
@@ -155,7 +159,7 @@ if __name__ == "__main__":
     env = DiscreteOneHotWrapper(gym.make("FrozenLake-v0"))
     env.reset()
     episode_id = [40]
-    env = gym.wrappers.Monitor(env, directory="mon", video_callable=lambda episode_id: True,force=True)
+    env = gym.wrappers.Monitor(env, directory="mon", video_callable=lambda episode_id: True, force=True)
 
     # Find out the size of the observation and action space
     obs_size = env.observation_space.shape[0]
@@ -164,12 +168,21 @@ if __name__ == "__main__":
     # Create our neural network and define the loss and optimizer functions
     net = CrossEntropyNN(obs_size, HIDDEN_SIZE, n_actions)
     objective = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(params=net.parameters(), lr=0.01)
+    optimizer = torch.optim.Adam(params=net.parameters(), lr=0.001)
+
+    full_batch = []
 
     # For each batch
     for iter_no, batch in enumerate(iterate_batches(env, net, BATCH_SIZE)):
+        reward_mean = float(np.mean(list(map(lambda s: s.reward, batch))))
+
         # Filter out the undesirable examples
-        obs_v, act_v, reward_b, reward_m = filter_batch(batch, PERCENTILE)
+        full_batch, obs, act, reward_bound = filter_batch(full_batch + batch, PERCENTILE)
+        if not full_batch:
+            continue
+        obs_v = torch.FloatTensor(obs)
+        act_v = torch.LongTensor(act)
+        full_batch = full_batch[-500:]
         # Zero gradients and then run observations through the NN to get actions
         optimizer.zero_grad()
         action_scores_v = net(obs_v)
@@ -180,10 +193,10 @@ if __name__ == "__main__":
         # Backwards propagate and step the optimizer (hopefully will learn!)
         loss_v.backward()
         optimizer.step()
-        print(f"Episode: {iter_no}, Reward: {reward_m}, \tLoss: {loss_v}")
+        print(f"Episode: {iter_no}, Reward: {reward_mean}, \tLoss: {loss_v}")
 
         # Reward of 200 in OpenAI Gym implies success
-        if reward_m > 199:
-            print(f"SOLVED: {reward_m}")
+        if reward_mean > 199:
+            print(f"SOLVED: {reward_mean}")
             break
 
