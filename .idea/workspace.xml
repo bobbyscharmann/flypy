@@ -54,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="566">
+              <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
               <folding>
                 <element signature="e#75#93#0" expanded="true" />
               </folding>
@@ -708,8 +708,8 @@ plt.show()</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="566">
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
           <folding>
             <element signature="e#75#93#0" expanded="true" />
           </folding>

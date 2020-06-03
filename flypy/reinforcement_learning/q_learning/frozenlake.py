@@ -28,8 +28,10 @@ class Agent:
         # defaultdict is basically a Python dictionary that does not raise a KeyError and instead returns a default
         self.reward_table = collections.defaultdict(float)
         self.transition_table = collections.defaultdict(collections.Counter)
-        self.values = collections.defaultdict(float)
+        self.value_table = collections.defaultdict(float)
 
+    # This function is used to gather random experience from the environment in order to prime the reward and transition
+    # tables.
     def play_n_random_steps(self, count):
         for _ in range(count):
             action = self.env.action_space.sample()
@@ -37,3 +39,14 @@ class Agent:
             self.reward_table[(self.state, action, new_state)] = reward_table
             self.transition_table[(self.state, action)][new_state] += 1
             self.state = self.env.reset() if is_done else new_state
+
+    def calc_action_value(self, state, action):
+        target_counts = self.transition_table[(state, action)]
+        total = sum(target_counts.values())
+        action_value = 0.0
+        for tgt_state, count in target_counts.items():
+            reward = self.reward_table[(state, action, tgt_state)]
+            val = reward + GAMMA * self.value_table[tgt_state]
+            action_value += (count / total) * val
+
+        return action_value
