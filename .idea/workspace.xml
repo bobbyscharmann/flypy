@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/mountaincar.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,20 +26,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="2329">
               <caret line="140" column="19" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2159">
+              <caret line="130" column="24" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
               <folding>
-                <element signature="e#80#90#0" expanded="true" />
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="161" column="92" selection-start-line="161" selection-start-column="92" selection-end-line="161" selection-end-column="92" />
+            <state relative-caret-position="68">
+              <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -82,6 +102,8 @@
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/cartpole/test.py" />
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py" />
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py" />
+        <option value="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py" />
+        <option value="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" />
       </list>
     </option>
   </component>
@@ -95,7 +117,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -119,26 +140,13 @@
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
               <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
-              <item name="cartpole" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
-              <item name="cross_entropy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
-              <item name="dqn" type="462c0819:PsiDirectoryNode" />
+              <item name="q_learning" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -164,7 +172,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.frozenlake">
+  <component name="RunManager" selected="Python.agent_environment_anatomy">
+    <configuration name="agent_environment_anatomy" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="flypy" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/flypy/reinforcement_learning" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="cartpole" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="flypy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -228,27 +254,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tensor_play3d" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="flypy" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/tensor_play3d.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="flypy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -272,11 +277,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.agent_environment_anatomy" />
         <item itemvalue="Python.frozenlake" />
         <item itemvalue="Python.cartpole" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.random_agent" />
-        <item itemvalue="Python.tensor_play3d" />
       </list>
     </recent_temporary>
   </component>
@@ -304,14 +309,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6165413" visible="true" weight="0.18637803" />
-      <window_info id="Structure" order="1" sideWeight="0.38345864" side_tool="true" visible="true" weight="0.18637803" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.61254615" visible="true" weight="0.18637803" />
+      <window_info id="Structure" order="1" sideWeight="0.38745388" side_tool="true" visible="true" weight="0.18637803" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3906071" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3906071" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8507384" weight="0.5555556" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -319,7 +323,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3295325" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.14926161" side_tool="true" weight="0.24857469" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.849359" weight="0.37970352" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.849359" visible="true" weight="0.37915236" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -334,7 +338,7 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/mountaincar.py</url>
+          <url>file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py</url>
           <line>52</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
@@ -612,13 +616,6 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="44" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/stolen_tensor.py" />
     <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/numpy/lib/function_base.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -661,23 +658,11 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cartpole/test.py">
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cartpole/test.py" />
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/gym/wrappers/monitoring/video_recorder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/mountaincar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="136">
+          <caret line="257" lean-forward="true" selection-start-line="257" selection-end-line="257" />
         </state>
       </provider>
     </entry>
@@ -688,27 +673,41 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.6/site-packages/gym/wrappers/monitoring/video_recorder.py">
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="257" lean-forward="true" selection-start-line="257" selection-end-line="257" />
+        <state relative-caret-position="2329">
+          <caret line="140" column="19" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/cartpole.py">
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/agent_environment_anatomy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="140" column="19" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
-          <folding>
-            <element signature="e#80#90#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="527">
+          <caret line="31" column="19" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="161" column="92" selection-start-line="161" selection-start-column="92" selection-end-line="161" selection-end-column="92" />
+        <state relative-caret-position="2159">
+          <caret line="130" column="24" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
         </state>
       </provider>
     </entry>

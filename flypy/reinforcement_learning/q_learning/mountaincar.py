@@ -3,7 +3,7 @@ import numpy as np
 import random
 
 env = gym.make("MountainCar-v0")
-NUM_POSSIBLE_ACTIONS = env.action_space.n # Position and Velocity
+NUM_POSSIBLE_ACTIONS = env.action_space.n  # Position and Velocity
 
 num_states = (env.observation_space.high - env.observation_space.low) * np.array([10, 100]) #np.zeros((NUM_POSSIBLE_STATES, NUM_POSSIBLE_ACTIONS))
 num_states = np.round(num_states, 0).astype(int) + 1
