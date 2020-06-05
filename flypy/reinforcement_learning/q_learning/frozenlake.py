@@ -60,3 +60,25 @@ class Agent:
                 best_value = action_value
                 best_action = action
         return best_action
+
+    def play_episode(self, env):
+        total_reward = 0.0
+        state = env.reset()
+        while True:
+            action = self.select_action(state)
+            new_state, reward, is_done, _ = env.step(action)
+            self.reward_table[(state, action, new_state)] = reward
+            self.transition_table[state, reward][new_state] += 1
+            total_reward += reward
+            if is_done:
+                break
+
+            state = new_state
+
+        return total_reward
+
+    def value_iteration(self):
+        for state in range(self.env.observation_space.n):
+            state_values = [self.calc_action_value(state, action) for action in range(self.env.action_space.n)]
+            self.value_table[state] = max(state_values)
+
