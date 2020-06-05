@@ -120,8 +120,14 @@ class Agent:
         return total_reward
 
     def value_iteration(self):
+        """This function will perform value iteration method on the environment."""
+        # For every possible state in the observation space
         for state in range(self.env.observation_space.n):
+            # Compute the values for each possible action
             state_values = [self.calc_action_value(state, action) for action in range(self.env.action_space.n)]
+
+            # Update the value table for this state based on the maximum value received from transitioning to another
+            # state
             self.value_table[state] = max(state_values)
 
 
@@ -146,6 +152,7 @@ if __name__ == "__main__":
 
         if reward > 0.80:
             print(f"Solved in {iter_no} iterations.")
+            iter_no = 0
 
     writer.close()
 
