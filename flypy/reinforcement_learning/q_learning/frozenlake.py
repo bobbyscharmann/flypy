@@ -36,7 +36,7 @@ class Agent:
         for _ in range(count):
             action = self.env.action_space.sample()
             new_state, reward, is_done, _ = self.env.step(action)
-            self.reward_table[(self.state, action, new_state)] = reward_table
+            self.reward_table[(self.state, action, new_state)] = reward
             self.transition_table[(self.state, action)][new_state] += 1
             self.state = self.env.reset() if is_done else new_state
 
@@ -45,8 +45,8 @@ class Agent:
         total = sum(target_counts.values())
         action_value = 0.0
         for tgt_state, count in target_counts.items():
-            reward = self.reward_table[(state, action, tgt_state)]
-            val = reward + GAMMA * self.value_table[tgt_state]
+            reward2 = self.reward_table[(state, action, tgt_state)]
+            val = reward2 + GAMMA * self.value_table[tgt_state]
             action_value += (count / total) * val
 
         return action_value
@@ -81,4 +81,29 @@ class Agent:
         for state in range(self.env.observation_space.n):
             state_values = [self.calc_action_value(state, action) for action in range(self.env.action_space.n)]
             self.value_table[state] = max(state_values)
+
+
+if __name__ == "__main__":
+    test_env = gym.make('FrozenLake-v0')
+    agent = Agent()
+    writer = SummaryWriter(comment="-v-iteration")
+    iter_no = 0
+    best_reward = 0.0
+    while True:
+        iter_no += 1
+        agent.play_n_random_steps(100)
+        agent.value_iteration()
+        reward = 0.0
+        for _ in range(TEST_EPISODES):
+            reward += agent.play_episode(test_env)
+        reward /= TEST_EPISODES
+        writer.add_scalar("reward", reward, iter_no)
+        if reward > best_reward:
+            print(f"Best reward updated from  {best_reward}->{reward}")
+            best_reward = reward
+
+        if reward > 0.80:
+            print(f"Solved in {iter_no} iterations.")
+
+    writer.close()
 
