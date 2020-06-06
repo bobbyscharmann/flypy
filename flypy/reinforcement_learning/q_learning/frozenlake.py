@@ -1,10 +1,13 @@
-"""Q Learning implementation of OpenAI Gym Frozen Lake"""
+"""Tabular Q Learning implementation of OpenAI Gym Frozen Lake"""
 import collections
 from tensorboardX import SummaryWriter
 import gym
 
+# Discount Factor
 GAMMA = 0.9
-TEST_EPISODES = 20
+
+# Learning Rate - helps the Q table converge smoothly
+ALPHA = 0.2
 
 
 class Agent:
@@ -12,68 +15,17 @@ class Agent:
         self.env = gym.make('FrozenLake-v0')
         self.state = self.env.reset()
 
-        # Key is "source state" + "action" + "target state" and the value is the immediate reward
-        # defaultdict is basically a Python dictionary that does not raise a KeyError and instead returns a default
-        self.reward_table = collections.defaultdict(float)
-
-        # Key is the "state" + "action" and the value is a dict that maps the target state into a count of the times we
-        # have seen it such that if we implement action A1 ten times and three times that leads us to state 4 and 7
-        # times it leads to state 5, this dict will be {4: 3, 5: 7}. This table is used to estimate the probabilities of
-        # transitions.
-        self.transition_table = collections.defaultdict(collections.Counter)
-
         # Dictionary that maps the state into the value for the state
-        self.value_table = collections.defaultdict(float)
+        self.values = collections.defaultdict(float)
 
-    def play_n_random_steps(self, count):
-        """ This function is used to gather random experience from the environment in order to prime the reward and
-        transition tables.
+    def sample_env(self):
+        action = self.env.action_space.sample()
+        old_state = self.state
+        new_state, reward, is_done, _ = self.env.step(action)
+        self.state = self.env.reset() if is_done else new_state
+        return old_state, action, reward, new_state
 
-        :param count:
-        :return:
-        """
-        # For each step
-        for _ in range(count):
-            # Sample the actions space
-            action = self.env.action_space.sample()
-
-            # Execute the action to get the reward
-            new_state, reward, is_done, _ = self.env.step(action)
-
-            # Update the reward and transition table
-            self.reward_table[(self.state, action, new_state)] = reward
-            self.transition_table[(self.state, action)][new_state] += 1
-            self.state = self.env.reset() if is_done else new_state
-
-    def calc_action_value(self, state, action):
-        """
-        This function is used to compute value from the state and action provided. This wil use the Bellman equation to
-        compute the future rewards.
-        :param state: The current state.
-        :param action:
-        :return:
-        """
-        # Number of times we have transition from this state in the past
-        target_counts = self.transition_table[(state, action)]
-
-        # Total number of times we have transitioned from state inthe past
-        total = sum(target_counts.values())
-        action_value = 0.0
-
-        # For each target state we have transitioned to from state
-        for tgt_state, count in target_counts.items():
-            # Look up the reward
-            reward2 = self.reward_table[(state, action, tgt_state)]
-
-            # Compute the discounted reward
-            val = reward2 + GAMMA * self.value_table[tgt_state]
-
-            # Compute the fraction of the reward for each state it can transition to due to each discounted value
-            action_value += (count / total) * val
-
-        return action_value
-
-    def select_action(self, state):
+    def best_value_and_action(self, state):
         """This function is used to select the best action (that with the highest value) from the current state
         :param state: The current state.
         """
@@ -82,13 +34,13 @@ class Agent:
         # For each possible action we can transition to from this state
         for action in range(self.env.action_space.n):
             # Compute teh action value
-            action_value = self.calc_action_value(state, action)
+            action_value = self.values[(state, action)]
 
             # Update the best value and action if this is the best one
             if best_value is None or best_value < action_value:
                 best_value = action_value
                 best_action = action
-        return best_action
+        return best_value, best_action
 
     def play_episode(self, env):
         """Play an episode in the environment. This initial state is set based on resetting the environment.

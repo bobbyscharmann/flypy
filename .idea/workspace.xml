@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +15,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cartpole/random_agent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="425">
               <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
             </state>
           </provider>
@@ -33,7 +33,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="783">
+            <state relative-caret-position="2159">
               <caret line="130" column="24" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
             </state>
           </provider>
@@ -42,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="44" column="45" selection-start-line="44" selection-start-column="45" selection-end-line="44" selection-end-column="45" />
+            <state relative-caret-position="187">
+              <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -103,6 +103,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -115,11 +116,30 @@
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="q_learning" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="value_iteration" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -285,9 +305,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6093929" visible="true" weight="0.18637803" />
-      <window_info id="Structure" order="1" sideWeight="0.3906071" side_tool="true" visible="true" weight="0.18637803" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6082474" visible="true" weight="0.18637803" />
+      <window_info id="Structure" order="1" sideWeight="0.39175257" side_tool="true" visible="true" weight="0.18637803" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -342,11 +363,6 @@
           <url>file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py</url>
           <line>164</line>
           <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -654,9 +670,19 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cartpole/random_agent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="425">
           <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
         </state>
       </provider>
@@ -668,27 +694,17 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
+        <state relative-caret-position="2159">
           <caret line="130" column="24" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="44" column="45" selection-start-line="44" selection-start-column="45" selection-end-line="44" selection-end-column="45" />
+        <state relative-caret-position="187">
+          <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
         </state>
       </provider>
     </entry>
