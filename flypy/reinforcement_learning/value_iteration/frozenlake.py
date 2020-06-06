@@ -1,4 +1,4 @@
-"""Q Learning implementation of OpenAI Gym Frozen Lake"""
+"""Value iteration implementation of OpenAI Gym Frozen Lake"""
 import collections
 from tensorboardX import SummaryWriter
 import gym
