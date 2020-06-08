@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,14 +40,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="88" column="28" selection-start-line="88" selection-start-column="28" selection-end-line="88" selection-end-column="28" />
-              <folding>
-                <element signature="e#58#76#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="408">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -93,6 +100,7 @@
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy/frozenlake.py" />
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py" />
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" />
+        <option value="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py" />
       </list>
     </option>
   </component>
@@ -124,20 +132,6 @@
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
               <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
-              <item name="q_learning" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="flypy" type="462c0819:PsiDirectoryNode" />
-              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
-              <item name="value_iteration" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -310,8 +304,8 @@
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.60714287" visible="true" weight="0.18637803" />
-      <window_info id="Structure" order="1" sideWeight="0.39285713" side_tool="true" visible="true" weight="0.18637803" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6059565" visible="true" weight="0.18637803" />
+      <window_info id="Structure" order="1" sideWeight="0.39404353" side_tool="true" visible="true" weight="0.18637803" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -706,11 +700,15 @@ plt.show()</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="88" column="28" selection-start-line="88" selection-start-column="28" selection-end-line="88" selection-end-column="28" />
-          <folding>
-            <element signature="e#58#76#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="408">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
         </state>
       </provider>
     </entry>
