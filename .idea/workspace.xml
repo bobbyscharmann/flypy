@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/atari_pong.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/dqn_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,8 +51,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#18#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -761,8 +762,11 @@ plt.show()</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#18#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
