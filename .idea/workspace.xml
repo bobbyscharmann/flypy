@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/atari_pong.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/dqn_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,10 +51,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+            <state relative-caret-position="85">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/dqn_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/atari_pong.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="47" selection-start-column="47" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -101,10 +120,13 @@
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/mountaincar.py" />
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/q_learning/frozenlake.py" />
         <option value="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py" />
+        <option value="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/dqn_model.py" />
+        <option value="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/atari_pong.py" />
+        <option value="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="28" />
     <option name="width" value="1920" />
     <option name="height" value="1018" />
@@ -133,6 +155,21 @@
               <item name="flypy" type="462c0819:PsiDirectoryNode" />
               <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="dqn" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flypy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="flypy" type="462c0819:PsiDirectoryNode" />
+              <item name="reinforcement_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="dqn" type="462c0819:PsiDirectoryNode" />
+              <item name="atari_pong" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -145,6 +182,9 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/flypy/reinforcement_learning/cross_entropy" />
       <recent name="$PROJECT_DIR$/examples" />
@@ -301,7 +341,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
+    <frame x="0" y="28" width="1920" height="1018" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6059565" visible="true" weight="0.18637803" />
@@ -705,10 +745,24 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong.py">
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/atari_pong.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+        <state>
+          <caret column="47" selection-start-column="47" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/dqn_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
