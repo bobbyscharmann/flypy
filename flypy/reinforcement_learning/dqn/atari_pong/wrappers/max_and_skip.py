@@ -6,16 +6,23 @@ import numpy as np
 import collections
 
 
-class FireResetEnv(gym.Wrapper):
-    """Wrapper used to press the FIRE button for Atari games that require it to start."""
-    def __init__(self, env=None):
-        super(FireResetEnv, self).__init__(env)
-        assert env.unwrapped.get_action_meanings()[1] == 'FIRE'
-        assert len(env.unwrapped.get_action_meanings()) >= 3
+class MaxAndSkipEnv(gym.Wrapper):
+    def __init__(self, env=None, skip=4):
+        super(MaxAndSkipEnv, self).__init__(env)
+        self._obs_buffer = collections.deque(maxlen=2)
+        self._skip = skip
 
     def step(self, action):
-        return self.env.step(action)
-
+        total_reward = 0.0
+        done = None
+        for _ in range(self._skip):
+            obs, reward, done, info = self.env.step(action)
+            self._obs_buffer.append(obs)
+            total_reward += reward
+            if done:
+                break
+            max_frame = np.max(np.stack(self._obs_buffer), axis=0)
+            return max_frame, total_reward, done, info
     def reset(self):
         self.env.reset()
 
