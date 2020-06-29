@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8013f3cd-04d6-41a5-8b88-c77215e205ab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/process_frame84.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/processframes84.py" beforeDir="false" afterPath="$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/processframes84.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/processframes84.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="68" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
+            <state relative-caret-position="153">
+              <caret line="9" column="98" selection-start-line="9" selection-start-column="98" selection-end-line="9" selection-end-column="98" />
               <folding>
                 <element signature="e#7#17#0" expanded="true" />
               </folding>
@@ -36,7 +35,14 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/fire_reset.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="e#18#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -741,9 +747,6 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/fire_reset.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/process_frame84.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -751,10 +754,20 @@ plt.show()</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/fire_reset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#18#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flypy/reinforcement_learning/dqn/atari_pong/wrappers/processframes84.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="68" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
+        <state relative-caret-position="153">
+          <caret line="9" column="98" selection-start-line="9" selection-start-column="98" selection-end-line="9" selection-end-column="98" />
           <folding>
             <element signature="e#7#17#0" expanded="true" />
           </folding>
