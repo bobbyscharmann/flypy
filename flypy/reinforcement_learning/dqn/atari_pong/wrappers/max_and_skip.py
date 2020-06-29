@@ -1,4 +1,4 @@
-"""This file is a wrapper around the gym environment which ombines the repitition of actions during K frames and pixels
+"""This file is a wrapper around the gym environment which combines the repetition of actions during K frames and pixels
 from from to consecutive frames."""
 import cv2
 import gym
