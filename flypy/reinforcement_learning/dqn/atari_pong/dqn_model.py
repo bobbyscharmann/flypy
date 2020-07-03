@@ -21,4 +21,17 @@ class DQN(nn.Module):
 
         conv_out_size = self._get_conv_out(input_shape)
 
-        self.fc = nn.Sequential()
+        self.fc = nn.Sequential(nn.Linear(conv_out_size, 512),
+                                nn.ReLU(),
+                                nn.Linear(512, n_actions))
+
+    def _get_conv_out(self, input_shape):
+        """Convenience function to pass dummy data through the convolutional layer to get the output size for fully
+        connected layer."""
+        o = self.conv(input_shape)
+        return int(np.prod(o.size()))
+
+    def forward(self, x):
+        """Pass input through convolutional and fully-connected layers"""
+        conv_out = self.conv(x).view(x.size()[0], -1)
+        return self.fc(conv_out)
