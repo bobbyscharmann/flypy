@@ -15,7 +15,7 @@ setup(
     author_email = "bobby.scharmann+flypy@gmail.com",
     description = ("Simple package for using neural networks - mostly by my own learning"),
     license = "MIT",
-    keywords = "neural networks",
+    keywords = "neural networks, reinforcement learning",
     url = "http://packages.python.org/flypy",
     packages=['flypy'],
     long_description=read('README'),
