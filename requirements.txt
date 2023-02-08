@@ -12,7 +12,7 @@ cycler==0.10.0
 decorator==4.4.2
 docutils==0.16
 flypy==0.0.1
-future==0.18.2
+future==0.18.3
 gym==0.17.1
 idna==2.9
 imageio==2.8.0
