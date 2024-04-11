@@ -14,7 +14,7 @@ docutils==0.16
 flypy==0.0.1
 future==0.18.3
 gym==0.17.1
-idna==2.9
+idna==3.7
 imageio==2.8.0
 importlib-metadata==1.6.0
 ipykernel==5.2.0
