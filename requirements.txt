@@ -33,7 +33,7 @@ matplotlib==3.2.1
 mccabe==0.6.1
 more-itertools==8.2.0
 numpy==1.22.0
-opencv-python==4.2.0.34
+opencv-python==4.8.1.78
 packaging==20.3
 parso==0.6.2
 pexpect==4.8.0
